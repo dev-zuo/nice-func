@@ -10,8 +10,6 @@
 
 链接：[iQOO Neo7 - vivo官方网站](https://www.vivo.com.cn/vivo/iqooneo7/)
 
-
-
 图片从上到下滚动时，位置切换
 
 transform: translate(695px, 575px) scale(2.5, 2.5);
@@ -20,11 +18,9 @@ transform: translate3d(55.8193px, 46.1814px, 0px) scale(1.1205, 1.1205);
 
 transform: translate(0px, 0px);
 
+GSAP (GreenSock Animation Platform) <https://github.com/greensock/GSAP>
 
-
-GSAP (GreenSock Animation Platform) https://github.com/greensock/GSAP
-
-Getting Started with GSAP https://greensock.com/get-started/#creatingAnAnimation
+Getting Started with GSAP <https://greensock.com/get-started/#creatingAnAnimation>
 
 #### img 标签和 div background image 都可以显示图片，使用 css 背景图片加载图片有什么好处
 
@@ -81,8 +77,3 @@ gsap ScrollTrigger 插件，scroll 滚动结合 gsap 动画
                     pin: true           //动画执行期间，页面不进行滚动，动画执行结束后，页面恢复滚动
                 }
 ```
-
-
-
-
-
