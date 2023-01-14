@@ -25,6 +25,8 @@ transform: translate(0px, 0px);
 
 GSAP (GreenSock Animation Platform) <https://github.com/greensock/GSAP>
 
+发音 [gi:s 'æp] 鸡丝哎婆
+
 Getting Started with GSAP <https://greensock.com/get-started/#creatingAnAnimation>
 
 ```js
