@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>video animation</title>
+    <style>
+        .container>div {
+            margin-right: 50px;
+        }
+
+        /* 弱化视频亮度，凸显文字 */
+        .gray-mask::before {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .35);
+        }
+
+        .control-fill {
+            fill: #f5f5f7;
+        }
+
+        ul {
+            display: flex;
+            position: relative;
+            list-style: none;
+            padding: 0;
+            margin-left: 0;
+            border: 1px solid #a1a1a6;
+            border-radius: 20px;
+        }
+
+        ul li {
+            font-style: normal;
+        }
+
+        ul li a {
+            font-size: 17px;
+            line-height: 1.2353641176;
+            font-weight: 600;
+            letter-spacing: -0.022em;
+            font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+            display: block;
+            position: relative;
+            z-index: 1;
+            width: 120px;
+            border-radius: 19px;
+            text-align: center;
+            line-height: 38px;
+            color: #a1a1a6;
+            text-decoration: none;
+        }
+
+        .tabnav-highlight {
+            transition: .2s ease-out;
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 100%;
+            background: #f5f5f7;
+            border-radius: 20px;
+        }
+
+        .current a {
+            pointer-events: none;
+            cursor: default;
+            transition: color .2s ease-out;
+            color: #151517;
+        }
+        .tabnav-item-1.current~.tabnav-highlight {
+            transform: translateX(0%);
+        }
+        .tabnav-item-2.current~.tabnav-highlight {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="display: flex;flex-wrap: wrap;">
+        <div style="width: 100%;min-width: 800px">
+            <p>large</p>
+            <video src="./images/large.mp4" muted autoplay loop style="width: 100%;"></video>
+        </div>
+
+        <div style="width: 100%;min-width: 800px;">
+            <p>medium</p>
+            <video src="./images/medium-first.mp4" muted autoplay loop style="width: 100%;"></video>
+        </div>
+
+        <div class="gray-mask" style="width: 100%; min-width: 800px;position: relative;">
+            <video src="./images/medium.mp4" muted autoplay loop style="width: 100%;"></video>
+            <div style="position: absolute;top: 30px;right:30px;color:#f5f5f7;font-size: 30px;">
+                最高 19 核图形处理器
+            </div>
+            <div style="position: absolute;bottom: 100px;left:30px;color:#f5f5f7;font-size: 30px;">
+                支持外接多达两台显示器
+            </div>
+
+            <div class="inline-media-ui" style="position: absolute;bottom: 22px;right: 22px;cursor: pointer;">
+                <div class="play-pause-button" data-aria-playing="暂停野兽视频" style="width: 32px;height: 32px;;">
+                    <svg class="svg-icon pause-icon" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 85 85">
+                        <path class="control-path circle-opaque" d="M42.5,2.5a40,40,0,1,1-40,40A40,40,0,0,1,42.5,2.5Z"
+                            fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4px" stroke-linejoin="round">
+                        </path>
+                        <path class="control-fill pause-line"
+                            d="M50,28.25a2,2,0,0,1,2,2v24a2,2,0,1,1-4,0v-24A2,2,0,0,1,50,28.25Z"></path>
+                        <path class="control-fill pause-line"
+                            d="M35,28.25a2,2,0,0,1,2,2v24a2,2,0,1,1-4,0v-24A2,2,0,0,1,35,28.25Z"></path>
+                    </svg>
+                    <svg class="svg-icon play-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 85"
+                        style="opacity: 1;z-index: 2;display: none">
+                        <path class="control-path circle-opaque" d="M42.5,2.5a40,40,0,1,1-40,40A40,40,0,0,1,42.5,2.5Z"
+                            fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4px" stroke-linejoin="round">
+                        </path>
+                        <path class="control-fill play-shape"
+                            d="M55.73,41.55a1.34,1.34,0,0,1,0,1.48,1.16,1.16,0,0,1-.52.52L35.27,56.1a1.33,1.33,0,0,1-.74.15,1.54,1.54,0,0,1-1.48-1.48v-25a1.25,1.25,0,0,1,.22-.74,1.16,1.16,0,0,1,.52-.52,1.25,1.25,0,0,1,.74-.22,2.19,2.19,0,0,1,.74.15L55.21,41a2,2,0,0,1,.52.59">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%;min-width: 800px;padding: 8%;background-color: #000;box-sizing: border-box;">
+            <div style="position: relative">
+                <div style="position: absolute;top: 8px; left: 67px;">
+                    <img src="./images/screen_all_day__do6bv6lam4cy_medium.jpeg" />
+                </div>
+                <img src="./images/m2_laptop_hw__c84jsepabw2u_medium.jpeg"></img>
+            </div>
+            <p style="color: #a1a1a6; text-align: right;">Adobe Photoshop Lightroom Classic</p>
+        </div>
+
+        <div style="width: 100%;min-width: 800px;padding: 8%;background-color: #000;box-sizing: border-box;">
+            <div style="position: relative">
+                <div style="position: absolute;top: 16px; left: 65px;">
+                    <img src="./images/2023-01-2.png"  style="width: 568px; height: 368px"/>
+                </div>
+                <img src="./images/m2_laptop_hw__c84jsepabw2u_medium.jpeg"></img>
+            </div>
+            <p style="color: #a1a1a6; text-align: right;">Adobe Photoshop Lightroom Classic</p>
+        </div>
+       
+
+        <div style="width: 100%;min-width: 800px;padding: 8%;background-color: #000;box-sizing: border-box;">
+            <div style="position: relative">
+                <div style="position: absolute;top: 8px; left: 63px;">
+                    <img src="./images/screen_processing__f36dk3ge7wey_medium.jpeg" />
+                </div>
+                <img src="./images/m2_laptop_hw__c84jsepabw2u_medium.jpeg"></img>
+            </div>
+            <p style="color: #a1a1a6; text-align: right;">Xcode</p>
+
+            <!-- 14 => 16 切换动画 -->
+            <div style="width: 240px">
+                <ul role="tablist" class="tabnav-items models-tabnav-items">
+                    <li role="presentation" class="tabnav-item tabnav-item-1 current">
+                        <a role="tab" href="#models-gallery-item-1-" id="models-gallery-item-1-trigger"
+                            data-ac-gallery-trigger="models-gallery-item-1" class="tabnav-link current"
+                            aria-controls="models-gallery-item-1">14 英寸机型</a>
+                    </li>
+                    <li role="presentation" class="tabnav-item tabnav-item-2">
+                        <a role="tab" href="#models-gallery-item-2-" id="models-gallery-item-2-trigger"
+                            data-ac-gallery-trigger="models-gallery-item-2" class="tabnav-link"
+                            aria-controls="models-gallery-item-2">16 英寸机型</a>
+                    </li>
+                    <span class="tabnav-highlight"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* 视频开始、暂停 */
+        document.querySelector('.pause-icon').onclick = (e) => {
+            document.querySelector('.gray-mask video').pause();
+            document.querySelector('.pause-icon').style.display = 'none'
+            document.querySelector('.play-icon').style.display = 'block'
+        }
+        document.querySelector('.play-icon').onclick = () => {
+            document.querySelector('.gray-mask video').play();
+            document.querySelector('.play-icon').style.display = 'none'
+            document.querySelector('.pause-icon').style.display = 'block'
+        }
+
+        document.querySelectorAll('ul li').forEach(item => {
+            item.onclick = (e) => {
+                document.querySelectorAll('ul li').forEach(item => item.classList.remove('current') )
+                item.classList.toggle('current')
+            }
+        })
+    </script>
+</body>
+
+</html>
