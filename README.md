@@ -1,10 +1,11 @@
 # nice-func
 
- Try to achieve nice function in the web page.
+Try to achieve nice function in the web page.
 
-## Demo
 
-### MacBook Pro 新品发布官网动画效果实现(2023年01月)
+[TOC]
+
+## MacBook Pro 新品发布官网动画效果实现(2023年01月)
 
 ![2-1-macbook-pro-video-1.gif](./src/images/2-1-macbook-pro-video-1.gif)
 
@@ -163,7 +164,7 @@ document.querySelectorAll('ul li').forEach(item => {
 </script>
 ```
 
-### vivo iQOO Neo7 向下滚动切换手机颜色效果
+## vivo iQOO Neo7 向下滚动切换手机颜色效果
 
 ![vivo-scroll-switch-phone-color.gif](./src/images/1-vivo-scroll-switch-phone-color.gif)
 
