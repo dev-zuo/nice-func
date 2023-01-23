@@ -4,6 +4,165 @@
 
 ## Demo
 
+### MacBook Pro 新品发布官网动画效果实现(2023年01月)
+
+![2-1-macbook-pro-video-1.gif](./src/images/2-1-macbook-pro-video-1.gif)
+
+原始链接：[MacBook Pro 14 英寸和 MacBook Pro 16 英寸 - Apple (中国大陆)](https://www.apple.com.cn/macbook-pro-14-and-16/)
+
+Code
+- [canvas-animation](./src/2-macbook-pro-animation-2023-01/canvas-animation.html)
+- [video-animation](./src/2-macbook-pro-animation-2023-01/video-animation.html)
+
+
+芯片滚动高光动画
+
+![2-3-macbook-pro-chip.gif](./src/images/2-3-macbook-pro-chip.gif)
+
+批量获取图片
+```js
+// batch-index.js
+// M2 pro 芯片切换动画 0000.jpg => 0052.png
+// https://www.apple.com/105/media/us/macbook-pro-14-and-16/2022/1baf5961-c793-48e7-9efd-0d23cac1e101/anim/m2_pro/medium/medium_0051.jpg
+
+// M2 max 芯片切换
+// https://www.apple.com/105/media/us/macbook-pro-14-and-16/2022/1baf5961-c793-48e7-9efd-0d23cac1e101/anim/m2_max/medium/medium_0000.jpg
+
+const axios = require('axios');
+const fs = require('fs')
+const path = require('path')
+
+/**
+ * 获取静态图片链接
+ * @param {*} mode m2_pro 或 m2_max
+ * @param {*} numStr '00' => '52'
+ */
+let getFileUrl = (mode, numStr) => `https://www.apple.com/105/media/us/macbook-pro-14-and-16/2022/1baf5961-c793-48e7-9efd-0d23cac1e101/anim/${mode}/medium/medium_00${numStr}.jpg`
+
+const downloadImgFromUrl = (mode, fileUrl) => {
+    axios.get(fileUrl, {
+        responseType: 'arraybuffer'
+    })
+      .then(function (response) {
+        // handle success
+        let fileNameArr = fileUrl.split('/')
+        let fileName = fileNameArr[fileNameArr.length - 1]
+        fs.writeFileSync(path.resolve(__dirname, `./download/${mode}/${fileName}`), response.data)
+        console.log('下载完成')
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+}
+
+for (let i = 0, len = 52; i <= len; i++) {
+    let numStr = i + ''
+    if (numStr.length < 2) {
+        numStr = `0${numStr}` // 0 => '00', 9 => '09'
+    }
+    downloadImgFromUrl('m2_pro', getFileUrl('m2_pro', numStr))
+    downloadImgFromUrl('m2_max', getFileUrl('m2_max', numStr))
+}
+```
+
+canvas 播放帧动画，参考：[滚动条控制播放的canvas逐帧动画](https://www.cnblogs.com/acttan/p/16334229.html)
+
+video 动画注意点：muted 才能 autoplay，循环播放视频 loop，如果不支持自动播视频有图片占位
+
+```html
+<video src="./images/large.mp4" muted autoplay loop style="width: 100%;"></video>
+```
+
+视频文字遮罩，启停视频按钮
+
+![2-2-macbook-pro-video-mask.gif](./src/images/2-2-macbook-pro-video-mask.gif)
+
+```html
+<body>
+  <div class="gray-mask" style="width: 100%; min-width: 800px;position: relative;">
+      <video src="./images/medium.mp4" muted autoplay loop style="width: 100%;"></video>
+      <div style="position: absolute;top: 30px;right:30px;color:#f5f5f7;font-size: 30px;">
+          最高 19 核图形处理器
+      </div>
+      <div style="position: absolute;bottom: 100px;left:30px;color:#f5f5f7;font-size: 30px;">
+          支持外接多达两台显示器
+      </div>
+
+      <div class="inline-media-ui" style="position: absolute;bottom: 22px;right: 22px;cursor: pointer;">
+          <div class="play-pause-button" data-aria-playing="暂停野兽视频" style="width: 32px;height: 32px;;">
+              <svg class="svg-icon pause-icon" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 85 85">
+                  <path class="control-path circle-opaque" d="M42.5,2.5a40,40,0,1,1-40,40A40,40,0,0,1,42.5,2.5Z"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4px" stroke-linejoin="round">
+                  </path>
+                  <path class="control-fill pause-line"
+                      d="M50,28.25a2,2,0,0,1,2,2v24a2,2,0,1,1-4,0v-24A2,2,0,0,1,50,28.25Z"></path>
+                  <path class="control-fill pause-line"
+                      d="M35,28.25a2,2,0,0,1,2,2v24a2,2,0,1,1-4,0v-24A2,2,0,0,1,35,28.25Z"></path>
+              </svg>
+              <svg class="svg-icon play-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 85"
+                  style="opacity: 1;z-index: 2;display: none">
+                  <path class="control-path circle-opaque" d="M42.5,2.5a40,40,0,1,1-40,40A40,40,0,0,1,42.5,2.5Z"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4px" stroke-linejoin="round">
+                  </path>
+                  <path class="control-fill play-shape"
+                      d="M55.73,41.55a1.34,1.34,0,0,1,0,1.48,1.16,1.16,0,0,1-.52.52L35.27,56.1a1.33,1.33,0,0,1-.74.15,1.54,1.54,0,0,1-1.48-1.48v-25a1.25,1.25,0,0,1,.22-.74,1.16,1.16,0,0,1,.52-.52,1.25,1.25,0,0,1,.74-.22,2.19,2.19,0,0,1,.74.15L55.21,41a2,2,0,0,1,.52.59">
+                  </path>
+              </svg>
+          </div>
+      </div>
+  </div>
+  <script>
+    /* 视频开始、暂停 */
+    document.querySelector('.pause-icon').onclick = (e) => {
+        document.querySelector('.gray-mask video').pause();
+        document.querySelector('.pause-icon').style.display = 'none'
+        document.querySelector('.play-icon').style.display = 'block'
+    }
+    document.querySelector('.play-icon').onclick = () => {
+        document.querySelector('.gray-mask video').play();
+        document.querySelector('.play-icon').style.display = 'none'
+        document.querySelector('.pause-icon').style.display = 'block'
+    }
+  </script>
+</body>
+```
+
+滑动切换按钮，纯 css，黑色背景很关键，不然效果出不来。核心代码如下：
+
+![2-4-macbook-pro-btn-switch.gif](./src/images/2-4-macbook-pro-btn-switch.gif)
+
+```html
+<style>
+/* 白色背景 */
+.tabnav-item-1.current~.tabnav-highlight {
+    transform: translateX(0%);
+}
+.tabnav-item-2.current~.tabnav-highlight {
+    transform: translateX(100%);
+}
+
+/* 添加过渡效果 */
+.tabnav-highlight {
+  transition: .2s ease-out;
+}
+</style>
+
+<script>
+// 点击事件切换 .current
+document.querySelectorAll('ul li').forEach(item => {
+  item.onclick = (e) => {
+    document.querySelectorAll('ul li').forEach(item => item.classList.remove('current') )
+    item.classList.toggle('current')
+  }
+})
+</script>
+```
+
 ### vivo iQOO Neo7 向下滚动切换手机颜色效果
 
 ![vivo-scroll-switch-phone-color.gif](./src/images/1-vivo-scroll-switch-phone-color.gif)
@@ -12,8 +171,8 @@
 
 Code
 
-- [scale-phone-to-middle-when-scroll](/1-vivo-scroll-switch-phone-color/scale-phone-to-middle-when-scroll.html)
-- [switch-phone-color-when-scroll](/1-vivo-scroll-switch-phone-color/switch-phone-color-when-scroll.html)
+- [scale-phone-to-middle-when-scroll](./src/1-vivo-scroll-switch-phone-color/scale-phone-to-middle-when-scroll.html)
+- [switch-phone-color-when-scroll](./src/1-vivo-scroll-switch-phone-color/switch-phone-color-when-scroll.html)
 
 图片从上到下滚动时，位置切换
 
