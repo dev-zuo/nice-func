@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <title>Document</title>
+    <style>
+      .section-2 {
+        position: relative;
+        margin-bottom: 500px;
+      }
+
+      /* section-2 自定义鼠标样式 */
+      @keyframes turn {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .player-btn .img-box .border-img {
+        animation: turn 1s linear infinite;
+      }
+      .player-btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        text-align: center;
+        cursor: none; /* 隐藏鼠标默认样式 */
+      }
+      .player-btn .img-box {
+        width: 100px;
+        height: 100px;
+      }
+      .player-btn img {
+        width: 100%;
+      }
+      .player-btn .text {
+        font-size: 12px;
+        color: #fff;
+      }
+      .abs {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+
+      /* section-2 文字动画 */
+      .section-2-text {
+        position: absolute;
+        padding: 16px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .section-2-text .title {
+        transition: all 0.7s;
+        /* 裁剪路径，insert 显示这个区域的内容，right、left 50%，会隐藏元素 */
+        clip-path: inset(0 50% 0 50%);
+        /*滚动到当前区域时，增加 class*/
+      }
+      .section-2.fade-in .title {
+        clip-path: inset(0 0 0 0); /* 滚到到视口时，显示元素 */
+      }
+      .section-2.fade-in .angles {
+        opacity: 0;
+      }
+      .section-2.fade-in .bg-mask {
+        transition: all .7s;
+        opacity: 0 !important;
+      }
+      .angles {
+        transition: all 3s;
+        opacity: 1;
+      }
+      .angles img {
+        position: absolute;
+      }
+      .angles img.top-left {
+        top: 0;
+        left: 0;
+      }
+      .angles img.top-right {
+        top: 0;
+        right: 0;
+      }
+      .angles img.bottom-left {
+        bottom: 0;
+        left: 0;
+      }
+      .angles img.bottom-right {
+        bottom: 0;
+        right: 0;
+      }
+      .section-2-text .title {
+        margin-bottom: 20px;
+        line-height: 44px;
+        font-size: 29px;
+        color: #fff;
+      }
+    </style>
+    <style media="screen AND (max-width:800px)">
+      /* 屏幕宽度小于500时，应用该样式 */
+      .section-2-text .title {
+        line-height: 22px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>section-1</p>
+    <div style="width: 100%">
+      <video
+        src="./assets/section-1-video.mp4"
+        poster="./assets/section-1-post.jpg"
+        muted
+        autoplay
+        loop
+        style="width: 100%"
+      ></video>
+    </div>
+
+    <p>section-2</p>
+    <div class="section-2" style="width: 100%">
+      <video
+        src="./assets/section-2-bg.mp4"
+        muted
+        autoplay
+        loop
+        style="width: 100%"
+      ></video>
+      <div class="bg-mask" style="position:absolute;left:0;top:0;width: 100%;height: 100%;background:#000;opacity: .8;"></div>
+      <!-- @鼠标样式_start -->
+      <div class="player-btn">
+        <div class="img-box">
+          <img
+            class="border-img full absolute loaded"
+            src="./assets/section-2-mouse-1.png"
+          />
+          <div class="img-cover abs">
+            <img
+              class="full absolute loaded"
+              alt="play-button"
+              src="./assets/section-2-mouse-2.png"
+            />
+          </div>
+        </div>
+        <span class="text">观看完整视频</span>
+      </div>
+      <!-- 文案动画 -->
+      <div class="section-2-text">
+        <div class="angles">
+          <img
+            class="angle top-left"
+            src="./assets/section-2-border-angle.svg"
+            style="opacity: 1; transform: translateX(0px) rotate(0deg)"
+          /><img
+            class="angle top-right"
+            src="./assets/section-2-border-angle.svg"
+            style="opacity: 1; transform: translateX(0px) rotate(90deg)"
+          /><img
+            class="angle bottom-left"
+            src="./assets/section-2-border-angle.svg"
+            data-ll-status="loaded"
+            style="opacity: 1; transform: translateX(0px) rotate(-90deg)"
+          /><img
+            class="angle bottom-right"
+            src="./assets/section-2-border-angle.svg"
+            style="opacity: 1; transform: translateX(0px) rotate(180deg)"
+          />
+        </div>
+        <div class="text">
+          <div class="title comp-angle-block-fade-in fade-in">
+            有色彩的地方<br />就有让生命感动的力量
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let section2El = document.querySelector(".section-2");
+      let playBtnEl = document.querySelector(".player-btn");
+      section2El.addEventListener("click", (e) => {
+        // alert("播放视频");
+      });
+      window.addEventListener(
+        "mousemove",
+        _.throttle((e) => {
+          // 鼠标相对视口位置，注意：如果页面有 y 轴滚动，那 clientY 和 页面顶部距离是不一样的。
+          // let x = e.clientX
+          // let y = e.clientY
+          // 鼠标相对页面的位置
+          let x = e.pageX;
+          let y = e.pageY;
+          // section-2 容器相对视口位置
+          let parentX = section2El.offsetLeft;
+          let parentY = section2El.offsetTop;
+          let isYOut = y < parentY || y > parentY + section2El.clientHeight;
+          let isXOut = x < parentX || x > parentX + section2El.clientWidth;
+          if (isXOut || isYOut) {
+            // console.log("移出去了");
+            playBtnEl.style.opacity = "0";
+            return;
+          } else {
+            playBtnEl.style.opacity = "1";
+          }
+          // 鼠标不在正中心，需要减去鼠标样式区域的宽高才能达到居中效果
+          // playBtnEl.style.left = `${x - parentX}px`
+          // playBtnEl.style.top = `${y - parentY }px`
+          playBtnEl.style.left = `${x - parentX - playBtnEl.clientWidth / 2}px`;
+          playBtnEl.style.top = `${y - parentY - playBtnEl.clientHeight / 2}px`;
+        }, 50)
+      );
+      // 通过 mouseenter、mouseleave 不稳定，无法快速准确的判断鼠标是否在区域里面
+      // 可能和事件的异步触发机制有关
+      // section2El.addEventListener('mouseenter', (e) => {
+      //     console.log('mouseenter>>>>>>>>>>>>>>')
+      //     playBtnEl.style.opacity = '1'
+      // })
+      // section2El.addEventListener('mouseleave', (e) => {
+      //     console.log('mouseleave>>>>>>>>>>>>>>')
+      //     playBtnEl.style.opacity = '0'
+      // })
+
+      // 怎么判断一个元素是否在当前可视区域
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to(".section-2-text", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: ".section-2",
+          start: "top center", // 当元素顶部部，滚动到达视口中间时, 开始动画
+          // end 默认是 trigger 离开视口
+          //   end: "bottom 10px", // 当section-2底部，到达可视区域bottom 500px时，结束动画
+          toggleClass: "fade-in",
+          scrub: true, // 表示动画可以重复执行改成false表示只执行一次
+          // markers: true, // 绘制开始位置和结束位置的线条
+          // pin: false, // 动画执行期间，页面不进行滚动，动画执行结束后
+        },
+      });
+    </script>
+  </body>
+</html>
