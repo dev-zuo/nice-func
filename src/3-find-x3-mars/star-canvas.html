@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        attribute vec4 a_Position;
+        void main(){
+            gl_Position = a_Position;
+            gl_PointSize = 50.0;
+        }
+    </script>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        void main() {
+            gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+        }
+    </script>
+    <script type="module">
+        import {initShaders} from '../jsm/Utils.js';
+    
+        const canvas = document.getElementById('canvas');
+        canvas.width=window.innerWidth;
+        canvas.height=window.innerHeight;
+        const gl = canvas.getContext('webgl');
+        const vsSource = document.getElementById('vertexShader').innerText;
+        const fsSource = document.getElementById('fragmentShader').innerText;
+        initShaders(gl, vsSource, fsSource);
+        const a_Position=gl.getAttribLocation(gl.program,'a_Position');
+        gl.vertexAttrib3f(a_Position,0.0,0.0,0.0);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.POINTS, 0, 1);
+    </script>
+<!--     
+    作者：鲲之大一郭炖不下
+    链接：https://juejin.cn/post/7013192849671847949
+    来源：稀土掘金
+    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。 -->
+    <script>
+        // function l() {
+        // // var t = Object(r.d)(document, "#zn-starry-star");
+        // var t = document.querySelector("#zn-starry-star")
+        // t &&
+        //     (function (t) {
+        //     var e = window.devicePixelRatio;
+        //     (t.width = t.getBoundingClientRect().width * e),
+        //         (t.height = t.getBoundingClientRect().height * e);
+        //     var n,
+        //         r = a()({ canvas: t }),
+        //         o = f(r),
+        //         u = function (t) {
+        //         var e = t.time;
+        //         t.tick % 2 != 0 &&
+        //             (r.clear({ color: [0, 0, 0, 1], depth: 1 }), o({ time: e }));
+        //         };
+
+        //         r.frame(u)
+        //     // Object(i.a)(t, {
+        //     //     start: "bottom",
+        //     //     end: "top",
+        //     //     forceInViewBoundary: !0,
+        //     //     handlers: {
+        //     //     onStateChange: function (t) {
+        //     //         "inView" === t.state ? (n = r.frame(u)) : n && n.cancel();
+        //     //     },
+        //     //     },
+        //     // });
+        //     })(t);
+        // }
+
+        // l()
+
+    function starVert(t, e, n) {
+        "use strict";
+        n.d(e, "a", function () {
+          return l;
+        });
+        var r = n(0),
+          i = n(3),
+          o = n(65),
+          a = n.n(o),
+          u = (n(150), n(39), n(112)),
+          c = n.n(u),
+          s = n(6);
+        var f = function (t) {
+          for (
+            var e = (function () {
+                var t = function () {
+                  var t =
+                      arguments.length > 0 && void 0 !== arguments[0]
+                        ? arguments[0]
+                        : 0,
+                    e =
+                      arguments.length > 1 && void 0 !== arguments[1]
+                        ? arguments[1]
+                        : 1;
+                  return Math.random() * (e - t) + t;
+                };
+                return {
+                  random: t,
+                  randomArray: function (e) {
+                    var n =
+                        arguments.length > 1 && void 0 !== arguments[1]
+                          ? arguments[1]
+                          : 0,
+                      r =
+                        arguments.length > 2 && void 0 !== arguments[2]
+                          ? arguments[2]
+                          : 1;
+                    return Array(e)
+                      .fill(0)
+                      .map(function () {
+                        return t(n, r);
+                      });
+                  },
+                };
+              })(),
+              n = e.random,
+              r = e.randomArray,
+              i = (function () {
+                var t;
+                switch (Object(s.d)().alias) {
+                  case "1920":
+                    t = { count: 1e3, speedRange: [1, 1], sizeRange: [1, 2] };
+                    break;
+                  default:
+                    t = { count: 1e3, speedRange: [1.2, 1.2], sizeRange: [1, 2] };
+                }
+                return t;
+              })(),
+              o = i.count,
+              a = i.speedRange,
+              u = i.sizeRange,
+              f = [],
+              l = 0;
+            l < o;
+            l += 1
+          ) {
+            var d = 2 * n() * Math.PI,
+              p = 0.85 * n() + 0.15;
+            f.push([p * Math.sin(d), p * Math.cos(d), n(), n()]);
+          }
+          return t({
+            vert: "precision highp float;\n#define GLSLIFY 1\n\n#define GLSLIFY 1\n\nattribute vec4 position;\nattribute float a_random0, a_random1, size, speed;\n\nuniform mat4 view, projection;\nuniform float time;\n\nvarying float v_random0, v_random1;\n\nvoid main() {\n  vec3 finalPos = position.xyz;\n  finalPos.z += speed * .08 * time;\n  finalPos.z = mod(finalPos.z * 2., 2.) / 2.;\n\n  gl_Position = projection * view * vec4(finalPos.xyz, 1.);\n  gl_PointSize = size * 7. * finalPos.z;\n\n  v_random0 = a_random0;\n  v_random1 = a_random1;\n}\n",
+            frag: "precision highp float;\n#define GLSLIFY 1\n\n#define GLSLIFY 1\n#define ORANGE vec3(.8784, .4392, .2824)\n#define WHITE vec3(0.7451, 0.7451, 0.7451)\n\nuniform float time;\n\nvarying float v_random0, v_random1;\n\nvoid main() {\n  float t0 = (3. * v_random1) * time + fract(v_random1 * 323.132);\n  float t1 = (6. * v_random1) * time + fract(v_random1 * 323.132);\n\n  float alpha =\n    mix(.6, abs(sin(t0)), step(.7, v_random0))\n    * mix(1., abs(sin(t1)), 1. - step(.7, v_random0));\n\n  vec3 color = mix(WHITE, ORANGE, step(.8, v_random0));\n  gl_FragColor = vec4(color, alpha * smoothstep(.5, .1, length(gl_PointCoord.xy - .475)));\n}\n",
+            attributes: {
+              position: f,
+              size: r(o, u[0], u[1]),
+              speed: r(o, a[0], a[1]),
+              a_random0: r(o),
+              a_random1: r(o),
+            },
+            uniforms: {
+              time: function (t) {
+                return t.time;
+              },
+              view: function () {
+                return c.a.lookAt([], [0, 0, 2], [0, 0, 0], [0, 1, 0]);
+              },
+              projection: function (t) {
+                var e = t.viewportWidth,
+                  n = t.viewportHeight;
+                return c.a.perspective([], Math.PI / 4, e / n, 0.1, 100);
+              },
+            },
+            count: f.length,
+            primitive: "points",
+            depth: { enable: !0 },
+            blend: {
+              enable: !0,
+              func: {
+                srcRGB: "src alpha",
+                srcAlpha: "src alpha",
+                dstRGB: "dst alpha",
+                dstAlpha: "dst alpha",
+              },
+            },
+          });
+        };
+        function l() {
+          var t = Object(r.d)(document, "#zn-starry-star");
+          t &&
+            (function (t) {
+              var e = window.devicePixelRatio;
+              (t.width = t.getBoundingClientRect().width * e),
+                (t.height = t.getBoundingClientRect().height * e);
+              var n,
+                r = a()({ canvas: t }),
+                o = f(r),
+                u = function (t) {
+                  var e = t.time;
+                  t.tick % 2 != 0 &&
+                    (r.clear({ color: [0, 0, 0, 1], depth: 1 }), o({ time: e }));
+                };
+              Object(i.a)(t, {
+                start: "bottom",
+                end: "top",
+                forceInViewBoundary: !0,
+                handlers: {
+                  onStateChange: function (t) {
+                    "inView" === t.state ? (n = r.frame(u)) : n && n.cancel();
+                  },
+                },
+              });
+            })(t);
+        }
+      }
+
+      function part(t, e, n) {
+        "use strict";
+        n.d(e, "a", function () {
+          return p;
+        });
+        var r = n(0),
+          i = n(2),
+          o = n(28),
+          a = n(3),
+          u = n(20),
+          c = n(21),
+          s = (n(150), n(8), n(26), n(27), n(13), n(65)),
+          f = n.n(s),
+          l = n(9);
+        function d(t) {
+          var e = f()({ canvas: t }),
+            n = Array(t.children.length).fill(void 0),
+            r = !1;
+          t.children.forEach(function (i, o) {
+            i.addEventListener("load", function () {
+              r || ((r = !0), (t.width = i.width), (t.height = i.height)),
+                (n[o] = e({
+                  uniforms: { uTexture: e.texture({ data: i, flipY: !0 }) },
+                }));
+            });
+          });
+          var i,
+            o,
+            a,
+            u = e({
+              vert: "#ifdef GL_ES\nprecision highp float;\n#define GLSLIFY 1\n#endif\n\nattribute vec2 position;\nvarying vec2 uv;\n\nvoid main() {\n  uv = 0.5 * (position + 1.0);\n  gl_Position = vec4(position, 0, 1);\n}",
+              frag: "#ifdef GL_ES\nprecision highp float;\n#define GLSLIFY 1\n#endif\n\nuniform float uTime, uDir;\nuniform sampler2D uTexture;\n\nvarying vec2 uv;\n\n#define t uTime\n\nvoid main() {\n  float ux = uDir < 0. ? 1. - uv.x : uv.x;\n  if (ux > uTime) discard;\n\n  float gradient = 1. - t;\n  float x = ux - (t - gradient);\n  float alpha = 1. - x / gradient;\n  vec4 color = texture2D(uTexture, uv);\n  gl_FragColor = vec4(color.rgb, alpha);\n}",
+              uniforms: { uDir: e.prop("dir"), uTime: e.prop("time") },
+              attributes: { position: [-4, -4, 0, 4, 4, -4] },
+              depth: { enable: !1 },
+              count: 3,
+              blend: {
+                enable: !0,
+                func: {
+                  srcRGB: "src alpha",
+                  srcAlpha: "src alpha",
+                  dstRGB: "one",
+                  dstAlpha: "one",
+                },
+              },
+              primitive: "triangles",
+            }),
+            c = -1,
+            s = { t: 0 },
+            d = function (t) {
+              var r = t.i,
+                a = t.dir,
+                f = t.reversed,
+                d = t.duration,
+                p = t.easing,
+                h = void 0 === p ? "easeOutQuad" : p;
+              i && i.cancel(), o && o.pause(), (c = r);
+              var v = !1;
+              return (
+                (i = e.frame(function () {
+                  !(function (t, r) {
+                    var i =
+                      arguments.length > 2 && void 0 !== arguments[2]
+                        ? arguments[2]
+                        : 1;
+                    e.clear({ color: [0, 0, 0, 0.01], depth: 1 }),
+                      u({ time: r, dir: i }, function () {
+                        n[t] && n[t]();
+                      });
+                  })(r, s.t, a * (f ? -1 : 1)),
+                    v && i && (i.cancel(), (i = void 0), c === r && (c = -1));
+                })),
+                new Promise(function (t) {
+                  (o = Object(l.a)({
+                    t: a > 0 ? 1 : 0,
+                    duration: d,
+                    easing: h,
+                    targets: s,
+                    autoplay: !0,
+                  })).finished.then(function () {
+                    (v = !0), (o = void 0), t();
+                  });
+                })
+              );
+            },
+            p = -1;
+          return {
+            setState: function (t) {
+              var e =
+                arguments.length > 1 && void 0 !== arguments[1] && arguments[1];
+              (p === t && c !== t) ||
+                (a ||
+                  (a =
+                    p >= 0
+                      ? d({ i: p, dir: -1, duration: 600, reversed: e })
+                      : Promise.resolve()),
+                a.then(function () {
+                  (a = void 0),
+                    p === t && d({ i: t, dir: 1, duration: 600, reversed: e });
+                }),
+                (p = t));
+            },
+          };
+        }
+        function p() {
+          var t,
+            e = document.getElementById("section-design"),
+            n = Object(r.d)(e, ".sticky-container"),
+            s = Object(r.d)(n, ".sticky"),
+            f = Object(r.e)(e, ".part"),
+            l = Object(r.d)(e, ".footer"),
+            p = [
+              "Part3: 璁捐 - 涓撳睘鑹�",
+              "Part3: 璁捐 - 鐏槦閾枃",
+              "Part3: 璁捐 - 娴佺嚎鏈鸿韩",
+              "Part3: 璁捐 - 鐜舰灞卞瑙�",
+              "Part3: 璁捐 - 杞昏杽闃叉按",
+            ];
+          if ((Object(o.b)(s), !Object(i.a)())) {
+            var h = Object(r.d)(e, ".image-clip");
+            (t = d(h)), Object(u.d)(h.children);
+          }
+          var v,
+            g = -1;
+          Object(o.b)(s);
+          Object(a.a)(n, {
+            start: "center",
+            end: "bottom",
+            handlers: {
+              onStateChange: function (t) {
+                var e = t.state,
+                  n = t.oldState;
+                "inView" === e &&
+                  ("before" === n
+                    ? Object(c.a)(p[0])
+                    : "after" === n && Object(c.a)(p[p.length - 1]));
+              },
+              inView: function (e) {
+                var n = e.distance / e.total;
+                !(function (e) {
+                  if (g !== e) {
+                    Object(c.a)(p[e]), t && t.setState(e, e < g);
+                    for (var n = 0; n < e; n += 1)
+                      f[n].classList.add("in-view", "after");
+                    for (var r = e + 1; r < 5; r += 1)
+                      f[r].classList.remove("in-view", "after");
+                    void 0 !== v && window.clearTimeout(v),
+                      (v = window.setTimeout(
+                        function () {
+                          f[e].classList.add("in-view"),
+                            f[e].classList.remove("after"),
+                            (v = void 0);
+                        },
+                        g < 0 ? 0 : 600
+                      )),
+                      Object(i.a)() ||
+                        l.setAttribute("data-active", "".concat(e + 1)),
+                      (g = e);
+                  }
+                })(n < 1 ? Math.floor(5 * n) : 4);
+              },
+            },
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

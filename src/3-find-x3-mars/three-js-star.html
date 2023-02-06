@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3Dstar</title>
+	<style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  	</style>
+  	<script src="./threejs/three.min.js"></script>
+  	<script src="./threejs/OrbitControls.js"></script>
+</head>
+<body>
+    <!-- three.js制作星空 https://blog.csdn.net/ephemeral_x/article/details/116841238 -->
+    <!-- Three.js零基础入门教程(郭隆邦) http://www.yanhuangxueyuan.com/Three.js/ -->
+	<script>
+    /**
+     * 创建场景对象Scene
+     */
+    var scene = new THREE.Scene();
+    var intersectsArr = []
+      
+      	//星空背景
+        var cloud = cloudFun()
+        scene.add(cloud)
+
+        function cloudFun() {
+          var geom = new THREE.Geometry();
+          var material = new THREE.ParticleBasicMaterial({
+            size: 2,
+            vertexColors: true
+          });
+          var n = 1200;
+          for (var i = 0; i < 3000; i++) {
+            var particle = new THREE.Vector3(
+              (Math.random() - 0.5) * n,
+              (Math.random() - 0.5) * n,
+              (Math.random() - 0.5) * n
+            );
+            geom.vertices.push(particle);
+            let color_k = Math.random();
+            // 蓝白色
+            // geom.colors.push(new THREE.Color(color_k, color_k, color_k * 2.0));
+            // 橙色为RGB为255,165,0,代码#FFA500
+            geom.colors.push(new THREE.Color(color_k * 10, color_k * 3, color_k));
+          }
+          var cloud = new THREE.ParticleSystem(geom, material);
+          return cloud;
+        }
+
+        /**
+		 * 透视投影相机设置
+		 */
+		var width = window.innerWidth; //窗口宽度
+		var height = window.innerHeight; //窗口高度
+		/**透视投影相机对象*/
+		var camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
+		camera.position.set(651, 613, 525); //设置相机位置
+		camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
+		
+
+        /**
+         * 光源设置
+         */
+        //点光源        
+        var point = new THREE.PointLight(0xffffff);
+        point.position.set(800, 200, 300);
+        scene.add(point);
+        // 点光源2  位置和point关于原点对称
+        var point2 = new THREE.PointLight(0xffffff);
+        point2.position.set(0, -500, 0); //点光源位置
+        scene.add(point2); //点光源添加到场景中
+
+        //环境光
+        var ambient = new THREE.AmbientLight(0x000000);
+        scene.add(ambient);
+
+        /**
+         * 创建渲染器对象
+         */
+        var renderer = new THREE.WebGLRenderer({
+          antialias: true
+        });
+        renderer.setSize(width, height); //设置渲染区域尺寸
+        renderer.setClearColor(0x101010, 1); //设置背景颜色
+        document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
+
+        let clock = new THREE.Clock();
+        var FPS = 30;
+        var refreshTime = 1 / FPS;
+        var timeS = 0;
+        function render() {
+
+          var renderInterval = clock.getDelta();
+          timeS = timeS + renderInterval;
+          if (timeS > refreshTime) {
+          	//执行渲染操作
+            renderer.render(scene, camera);
+            timeS = 0;
+          }
+          //每次渲染位置变化，动态效果
+          cloud.rotation.x += 0.0002;
+          cloud.rotation.y += 0.0002;
+          cloud.rotation.z += 0.0002;
+		  //周期性渲染
+          requestAnimationFrame(render);
+        }
+
+        render();
+        var controls = new THREE.OrbitControls(camera);//创建控件对象
+
+  </script>
+</body>
+</html>
