@@ -26502,6 +26502,7 @@
           p = 0.85 * n() + 0.15;
         f.push([p * Math.sin(d), p * Math.cos(d), n(), n()]);
       }
+      // https://stackoverflow.com/questions/13780609/what-does-precision-mediump-float-mean
       return t({
         vert: "precision highp float;\n#define GLSLIFY 1\n\n#define GLSLIFY 1\n\nattribute vec4 position;\nattribute float a_random0, a_random1, size, speed;\n\nuniform mat4 view, projection;\nuniform float time;\n\nvarying float v_random0, v_random1;\n\nvoid main() {\n  vec3 finalPos = position.xyz;\n  finalPos.z += speed * .08 * time;\n  finalPos.z = mod(finalPos.z * 2., 2.) / 2.;\n\n  gl_Position = projection * view * vec4(finalPos.xyz, 1.);\n  gl_PointSize = size * 7. * finalPos.z;\n\n  v_random0 = a_random0;\n  v_random1 = a_random1;\n}\n",
         frag: "precision highp float;\n#define GLSLIFY 1\n\n#define GLSLIFY 1\n#define ORANGE vec3(.8784, .4392, .2824)\n#define WHITE vec3(0.7451, 0.7451, 0.7451)\n\nuniform float time;\n\nvarying float v_random0, v_random1;\n\nvoid main() {\n  float t0 = (3. * v_random1) * time + fract(v_random1 * 323.132);\n  float t1 = (6. * v_random1) * time + fract(v_random1 * 323.132);\n\n  float alpha =\n    mix(.6, abs(sin(t0)), step(.7, v_random0))\n    * mix(1., abs(sin(t1)), 1. - step(.7, v_random0));\n\n  vec3 color = mix(WHITE, ORANGE, step(.8, v_random0));\n  gl_FragColor = vec4(color, alpha * smoothstep(.5, .1, length(gl_PointCoord.xy - .475)));\n}\n",
