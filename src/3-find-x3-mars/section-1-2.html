@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="./fonts/fonts-cn.css" type="text/css">
     <title>Document</title>
     <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+      }
       .section-2 {
         position: relative;
         margin-bottom: 500px;
@@ -72,15 +77,15 @@
         clip-path: inset(0 0 0 0); /* 滚到到视口时，显示元素 */
       }
       .section-2.fade-in .angles {
-        opacity: 0;
+        opacity: 1;
       }
       .section-2.fade-in .bg-mask {
         transition: all .7s;
         opacity: 0 !important;
       }
       .angles {
-        transition: all 3s;
-        opacity: 1;
+        transition: all .7s;
+        opacity: 0;
       }
       .angles img {
         position: absolute;
@@ -117,8 +122,7 @@
     </style>
   </head>
   <body>
-    <p>section-1</p>
-    <div style="width: 100%">
+    <div style="width: 100%;display: flex;">
       <video
         src="./assets/section-1-video.mp4"
         poster="./assets/section-1-post.jpg"
@@ -129,8 +133,7 @@
       ></video>
     </div>
 
-    <p>section-2</p>
-    <div class="section-2" style="width: 100%">
+    <div class="section-2" style="width: 100%; overflow: hidden;">
       <video
         src="./assets/section-2-bg.mp4"
         muted
