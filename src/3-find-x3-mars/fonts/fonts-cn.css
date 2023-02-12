@@ -1,0 +1,174 @@
+@font-face {
+    font-family: "OPPOSans-Regular";
+    src: url(./OPPOSans-R.woff2) format("woff2");
+    /* url(https://www.oppo.com/content/dam/statics/fonts/cn/OPPOSans-R.woff) format("woff"),
+    url(https://www.oppo.com/content/dam/statics/fonts/cn/OPPOSans-R.ttf) format("truetype"),
+    url(../../../../cn/assets/src/fonts/zh-CN/OPPOSansR/OPPOSans-R.svg) format("svg"),
+    url(https://www.oppo.com/content/dam/statics/fonts/cn/OPPOSans-R.eot) format("embedded-opentype"); */
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+body,
+html {
+    font-family: "OPPOSans-Ver2-Regular", "OPPOSans-Regular", Helvetica, Arial, sans-serif, system-ui;
+    font-feature-settings: "salt";
+    /* letter-spacing: 0.5px; */
+}
+
+.font-medium {
+    font-family: "OPPOSans-Ver2-Medium";
+}
+
+.font-blod {
+    font-family: "OPPOSans-Ver2-Bold";
+}
+
+.font-headline-1 {
+    font-size: 72px;
+}
+
+.font-headline-2 {
+    font-size: 68px;
+}
+
+.font-headline-3 {
+    font-size: 50px;
+}
+
+.font-headline-4 {
+    font-size: 42px;
+    letter-spacing: 0.5px;
+}
+
+.font-headline-5 {
+    font-size: 48px;
+    line-height: 60px;
+}
+
+.font-headline-6 {
+    font-size: 36px;
+}
+
+.font-subtitle-1 {
+    font-size: 32px;
+}
+
+.font-subtitle-2 {
+    font-size: 24px;
+}
+
+.font-subtitle-3-1 {
+    font-size: 24px;
+}
+
+.font-subtitle-3 {
+    font-size: 20px;
+}
+
+.font-body-1 {
+    font-size: 18px;
+}
+
+.font-body-2-1 {
+    font-size: 16px;
+}
+
+.font-body-2 {
+    font-size: 16px;
+}
+
+.font-body-3-1 {
+    font-size: 14px;
+}
+
+.font-body-3 {
+    font-size: 12px;
+}
+
+.font-description-1 {
+    font-size: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .font-headline-1 {
+        font-size: 60px;
+    }
+
+    .font-headline-2 {
+        font-size: 48px;
+    }
+
+    .font-headline-3 {
+        font-size: 40px;
+        letter-spacing: 0.5px;
+    }
+
+    .font-headline-4 {
+        font-size: 36px;
+        letter-spacing: 0.5px;
+    }
+
+    .font-headline-5 {
+        font-size: 30px;
+    }
+
+    .font-headline-6 {
+        font-size: 28px;
+    }
+
+    .font-subtitle-1 {
+        font-size: 24px;
+    }
+
+    .font-subtitle-2 {
+        font-size: 20px;
+    }
+
+    .font-subtitle-3-1 {
+        font-size: 18px;
+    }
+
+    .font-subtitle-3 {
+        font-size: 16px;
+    }
+
+    .font-body-1 {
+        font-size: 16px;
+    }
+
+    .font-body-2 {
+        font-size: 14px;
+    }
+
+    .font-body-3-1 {
+        font-size: 12px;
+    }
+}
+
+.font-headline-1,
+.font-headline-2,
+.font-headline-3,
+.font-headline-4,
+.font-headline-5,
+.font-headline-6,
+.font-subtitle-1,
+.font-subtitle-2,
+.font-subtitle-3-1,
+.font-subtitle-3,
+.font-body-1,
+.font-body-2-1,
+.font-body-2,
+.font-body-3-1,
+.font-body-3,
+.font-description-1 {
+    line-height: 1.5;
+}
+
+.font-headline-1,
+.font-headline-2,
+.font-headline-3,
+.font-headline-4 {
+    letter-spacing: unset;
+}

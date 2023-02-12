@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +9,17 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./fonts/fonts-cn.css">
     <style>
       body {
         margin: 0;
-        padding-top: 500px;
         overflow-y: scroll;
-        height: 5000px;
+        height: 8000px;
+        display: flex;
+        flex-direction: column;
+      }
+      body > img {
+        width: 100%;
       }
       p {
         margin: 0;
@@ -87,7 +91,7 @@
         width: 910px;
         clip-path: inset(0 0 0 100%);
         opacity: 0;
-        transition: clip-path 0.6s, opacity 0.6s;
+        transition: clip-path 0.8s, opacity 0.8s;
       }
       .left-desc .text-title {
         font-size: 35px;
@@ -95,11 +99,12 @@
         opacity: 0;
         /* => inset(0 0 0 100%); 左侧 100% => 80% => 60% => 10% => 0 从右到左 */
         clip-path: inset(0 0 0 100%);
-        transition: clip-path 0.6s, opacity 0.6s;
+        transition: clip-path 0.4s, opacity 0.4s;
       }
       .left-desc .text-detail {
         margin-top: 25px;
-        font-size: 16px;
+        font-size: 15px;
+        line-height: 1.56;
         opacity: 0;
         /* => inset(0 100% 0 0); 右侧 100% => 80% => 60% => 10% => 0 从左到右 */
         clip-path: inset(0 0 0 100%);
@@ -132,35 +137,84 @@
         clip-path: inset(0 0 0 0);
         opacity: 1;
       }
+      #progress {
+        margin-left: 5px;
+        color: white;
+      }
+      .circle-wrapper {
+        width: 20px;
+        height: 20px;
+        left: 20px;
+        top: 50px;
+      }
+      @keyframes circleScale {
+        from {
+          transform: scale(2);
+        }
+        to {
+          transform: scale(0.5);
+        }
+      }
+      @keyframes circleScaleSlow {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(0.5);
+        }
+      }
+      .circle-wrapper .fast-flow {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 1;
+        border: 1px solid #ff995e;
+        background: transparent;
+        border-radius: 50%;
+        animation: circleScale 1.5s ease infinite;
+      }
+      .circle-wrapper .slow-flow {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 1;
+        border: 1px solid #ff995e;
+        background: transparent;
+        border-radius: 50%;
+        animation: circleScaleSlow 1.5s ease infinite;
+      }
+      .circle-wrapper .circle {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff995e;
+        margin-top: 50%;
+        margin-left: 50%;
+        transform: translate(calc(-50% + 1px), calc(-50% + 1px));
+      }
     </style>
     <style media="screen AND (max-width:1400px)">
       /* 屏幕宽度小于1400时，应用该样式 */
-      /* .left-desc .text-title {
-        font-size: 24px;
-        line-height: 1.5em;
-      }
-      .left-desc .text-desc {
-        font-size: 12px;
-      } */
     </style>
     <style media="screen AND (max-width:1000px)">
       /* 屏幕宽度小于1000时，应用该样式 */
-      /* .text-desc p,
-      .text-desc img {
-        display: none;
-      } */
     </style>
   </head>
   <body>
+    <img src="./assets/section-3-bg.png" />
+
+    <!-- section-3 Part3: 设计 -->
     <div class="section-3">
       <!-- three.js 星空背景 -->
       <div class="starry-star-wrap"></div>
+      <!-- 4 个角落石头-->
       <div class="section-3-stone abs">
         <img src="./assets/section-3-stone-2.png" />
         <img src="./assets/section-3-stone-1.png" />
         <img src="./assets/section-3-stone-4.png" />
         <img src="./assets/section-3-stone-3.png" />
       </div>
+      <!-- 内容区域 - part 1/2/3 -->
       <div class="section-3-info abs">
         <div class="part part-1">
           <div class="left-desc">
@@ -203,9 +257,96 @@
           <img src="./assets/section-3-phone-c.jpg" />
         </div>
         <div class="text-desc left-bottom-phone">
-          <p style="color: #8c8c8c">EXPLORING…20%</p>
+          <!-- 进度 -->
+          <p style="color: #8c8c8c">EXPLORING…<span id="progress">20%</span></p>
+          <!-- 所在位置 点 动画-->
+          <div class="circle-wrapper abs circle1">
+            <div class="fast-flow"></div>
+            <div class="slow-flow"></div>
+            <div class="circle"></div>
+          </div>
+          <!-- 透明手机框 -->
           <img src="./assets/section-3-phone.png" />
         </div>
+      </div>
+    </div>
+    <!-- section-4 Part4: 定制 - 火星滤镜-->
+    <style>
+      .section-4 {
+        position: relative;
+        height: 900px;
+        margin-top: 2996px;
+      }
+      .section-4 img {
+        height: 900px;
+      }
+      .abs.s-4-1 {
+        z-index: 3;
+        object-fit: cover;
+        transform: scale(1.5);
+        transition: all 1.5s;
+      }
+      .s-4-1-wrap {
+        height: 900px;
+        overflow: hidden;
+      }
+      .section-4.active .abs.s-4-1 {
+        transform: scale(5);
+      }
+      .abs.s-4-2 {
+        z-index: 2;
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 1s cubic-bezier(.13,.52,.56,1);
+      }
+      .abs.s-4-2.active {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+      }
+      .abs.s-4-3 {
+        z-index: 1;
+        transform: scale(1.3);
+        transition: transform 1.5s;
+      }
+      .section-4.active .abs.s-4-3 {
+        transform: scale(1)
+      }
+      .comp-inner {
+        position: absolute;
+        top: 25%;
+        left: 15%;
+        z-index: 5;
+        color: white;
+        font-size: 35px;
+        line-height: 54px;
+        clip-path: inset(0 100% 0 0); /* 从左到右 */
+        transition: all 1s;
+        overflow: hidden;
+        /* transform: translateX(-100%); */
+      }
+      .comp-inner .detail {
+        width: 438px;
+        margin-top: 20px;
+        font-size: 15px;
+        line-height: 23px;
+      }
+      .comp-inner.active {
+        clip-path: inset(0 0 0 0); 
+        /* transform: translateX(0); */
+      }
+    </style>
+    <div class="section-4">
+      <div class="abs s-4-1-wrap">
+        <img class="abs s-4-1" src="./assets/sec-4-circle.svg" />
+      </div>
+      <img class="abs s-4-2" src="./assets/section-4-bg-deep.jpg" />
+      <div class="abs s-4-1-wrap">
+        <img class="abs s-4-3" src="./assets/section-4-bg.jpg" />
+      </div>
+      <div class="comp-inner">
+        <div class="title comp-angle-block-fade-in-left fade-in">火星色彩滤镜，</div>
+        <div class="title comp-angle-block-fade-in-left fade-in">地球照片秒变外星大片</div>
+        <div class="detail comp-angle-block-fade-in-left fade-in">AI 调色内置火星色彩滤镜，地球上的沙漠、戈壁、建筑等风光，可一键变成如亲临火星拍摄的外星大片。</div>
       </div>
     </div>
     <script>
@@ -227,7 +368,7 @@
           var material = new THREE.ParticleBasicMaterial({
             size: 1, // 指定粒子的大小，默认是1，之前是 2 ，比较小
             vertexColors: true, // 通常情况下ParticleSystem里的所有粒子都具有相同的颜色。如果该属性设为true，而且几何体的colors数组也有值，那就使用颜色数组中的值，默认是false
-        });
+          });
           var n = 1200;
           //   for (var i = 0; i < 3000; i++) {
           for (var i = 0; i < 3000; i++) {
@@ -236,13 +377,13 @@
               (Math.random() - 0.5) * n,
               (Math.random() - 0.5) * n,
               (Math.random() - 0.5) * n
-            )
-            // Vector3：Class representing a 3D vector. A 3D vector is an ordered triplet of numbers 
+            );
+            // Vector3：Class representing a 3D vector. A 3D vector is an ordered triplet of numbers
             // (labeled x, y, and z), which can be used to represent a number of things, such as:
             // - A point in 3D space.
-            // - A direction and length in 3D space. 
-            //   In three.js the length will always be the Euclidean distance (straight-line distance) 
-            //   from (0, 0, 0) to (x, y, z) and the direction is also measured from (0, 0, 0) 
+            // - A direction and length in 3D space.
+            //   In three.js the length will always be the Euclidean distance (straight-line distance)
+            //   from (0, 0, 0) to (x, y, z) and the direction is also measured from (0, 0, 0)
             //   towards (x, y, z).
             // - Any arbitrary ordered triplet of numbers.
             // https://threejs.org/docs/#api/en/math/Vector3
@@ -346,7 +487,9 @@
       //     },
       //   });
 
-      //
+      const changeProgress = (val) => {
+        document.querySelector("#progress").innerHTML = `${val}%`;
+      };
       let tl = gsap.timeline();
       tl.to(".part-1", {
         opacity: 1,
@@ -356,9 +499,12 @@
           end: "+1000",
           toggleClass: "active",
           scrub: true, // 表示动画可以重复执行改成false表示只执行一次
-        //   markers: true, // 绘制开始位置和结束位置的线条
+          //   markers: true, // 绘制开始位置和结束位置的线条
           onEnter: function () {
-            // gsap.set(".part-2", { autoAlpha: 0 });
+            changeProgress(33);
+          },
+          onEnterBack: function () {
+            changeProgress(33);
           },
           onLeave: function () {
             gsap.to(".part-2", {
@@ -370,6 +516,12 @@
                 toggleClass: "active",
                 scrub: true, // 表示动画可以重复执行改成false表示只执行一次
                 // markers: true, // 绘制开始位置和结束位置的线条
+                onEnter: function () {
+                  changeProgress(66);
+                },
+                onEnterBack: function () {
+                  changeProgress(66);
+                },
                 onLeave: function () {
                   gsap.to(".part-3", {
                     opacity: 1,
@@ -379,7 +531,13 @@
                       end: "+1000",
                       toggleClass: "active",
                       scrub: true, // 表示动画可以重复执行改成false表示只执行一次
-                    //   markers: true, // 绘制开始位置和结束位置的线条
+                      //   markers: true, // 绘制开始位置和结束位置的线条
+                      onEnter: function () {
+                        changeProgress(100);
+                      },
+                      onEnterBack: function () {
+                        changeProgress(100);
+                      },
                       onLeave: () => {
                         // gsap.set('.part-2', {autoAlpha: 0});
                       },
@@ -403,6 +561,41 @@
           // scrub: true, // 表示动画可以重复执行改成false表示只执行一次
           // markers: true, // 绘制开始位置和结束位置的线条
           pin: true, // 动画执行期间，页面不进行滚动，动画执行结束后
+          onEnterBack() {
+            document.querySelector('.abs.s-4-2').classList.remove('active')
+            document.querySelector('.comp-inner').classList.remove('active')
+          }
+        },
+      });
+
+      // section-4
+      gsap.to(".section-4", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: ".section-4",
+          delay: 1,
+          start: "top top", // 当元素顶部部，滚动到达视口中间时, 开始动画
+          // end 默认是 trigger 离开视口
+          end: "+1000", // 当section-2底部，到达可视区域bottom 500px时，结束动画
+          toggleClass: "active",
+          // scrub: true, // 表示动画可以重复执行改成false表示只执行一次
+          markers: true, // 绘制开始位置和结束位置的线条
+          pin: true, // 动画执行期间，页面不进行滚动，动画执行结束后
+          scrub: 1,
+          onEnter() {
+            setTimeout(() => {
+              document.querySelector('.comp-inner').classList.add('active')
+            }, 500)
+            setTimeout(() => {
+              document.querySelector('.abs.s-4-2').classList.add('active')
+            },1000)
+          },
+          onLeave() {
+            document.querySelector('.abs.s-4-1').style.display = 'none'
+          },
+          onEnterBack() {
+            document.querySelector('.abs.s-4-1').style.display = 'block'
+          }
         },
       });
     </script>

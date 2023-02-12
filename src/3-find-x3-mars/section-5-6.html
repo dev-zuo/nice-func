@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>find-x3-section-5-6</title>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./fonts/fonts-cn.css" />
+    <style>
+      body {
+        margin: 0;
+        height: 8000px;
+        background: #0e0e0e;
+        color: white;
+      }
+      .bg {
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.2);
+      }
+      .section-5 img {
+        position: absolute;
+      }
+      .section-5 {
+        position: relative;
+        width: 100%;
+        min-width: 1000px;
+        height: 800px;
+      }
+      .section-5.active .wrap-main {
+        transform: translate(-50%, -50%);
+      }
+      .wrap-main {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        height: 600px;
+        width: 950px;
+        position: absolute;
+        transition: all 1s;
+      }
+      .wrap-main img {
+        position: absolute;
+        height: 263px;
+      }
+      .wrap-main img:nth-child(1) {
+        top: 0;
+        left: 21px;
+        z-index: 4;
+      }
+      .wrap-main img:nth-child(2) {
+        top: 70px;
+        left: 140px;
+        z-index: 3;
+      }
+      .wrap-main img:nth-child(3) {
+        top: 189px;
+        left: 336px;
+        z-index: 2;
+      }
+      .wrap-main img:nth-child(4) {
+        top: 350px;
+        left: 595px;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <p style="padding: 0 40px 85px 10px">Part5: 包装</p>
+    <section class="section-5">
+      <img class="bg" src="./assets/section-5-bg.jpg" />
+      <div class="wrap-main">
+        <img src="./assets/section-5-1.png" />
+        <img src="./assets/section-5-2.png" />
+        <img src="./assets/section-5-3.png" />
+        <img src="./assets/section-5-4.png" />
+      </div>
+    </section>
+    <!-- Part6 - 第一个场景 -->
+    <style>
+      #section-6-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 90px;
+        text-align: center;
+      }
+      .comp-inner .title {
+        font-size: 35px;
+        line-height: 46px;
+      }
+      .comp-inner .detail {
+        margin: 25px auto 0;
+        font-size: 15px;
+        line-height: 23px;
+      }
+      #section-6-1 .phone {
+        margin: 80px auto 0;
+        width: 380px;
+        height: 380px;
+      }
+    </style>
+    <section id="section-6-1" style="margin-top: 80px">
+      <div class="g--container">
+        <div class="comp-inner">
+          <div class="title comp-angle-block-fade-in fade-in">
+            全面了解色彩影像旗舰
+          </div>
+          <div class="detail comp-angle-block-fade-in fade-in">
+            从捕捉、储存到显示全程 10
+            亿色²，隔着屏幕都能感受照片里的喜怒哀乐。<br
+              class="g--pt-hidden"
+            />色彩唤醒感动，满满创新，等你慢慢揭开。
+          </div>
+        </div>
+        <div class="buttons fade-in" style="margin: 50px auto 0">
+          <div class="comp-angle-block small">
+            <div class="comp-inner">探索更多 Find X3 系列</div>
+          </div>
+        </div>
+        <img class="phone loaded fade-in" src="./assets/section-6-phone.png" />
+      </div>
+    </section>
+    <!-- Part6: 第二个场景 -->
+    <section
+      class="section-6-2"
+      style="position: sticky; top: 0; margin-top: -620px; height: 1000px"
+    >
+      <!-- 背景遮罩上一层，图片  -->
+      <div class="inner" style="opacity: 0; z-index: 2; position: relative">
+        <div
+          class="comp-border-text text-block"
+          style="
+            position: absolute;
+            text-align: center;
+            z-index: 3;
+            opacity: 1;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+          "
+        >
+          <div class="comp-angle-block inner">
+            <div class="comp-inner">
+              <div class="title comp-angle-block-fade-in">10 亿色，</div>
+              <div class="title comp-angle-block-fade-in">
+                打开手机色彩新世界
+              </div>
+              <div class="detail comp-angle-block-fade-in" style="width: 480px">
+                搭载全链路 10bit 色彩引擎，重写手机与色彩的定义。<br
+                  class="g--pt-hidden"
+                />影像可捕捉前所未有的丰富细节、存储忠实无损，屏幕呈现细腻惊艳。10
+                亿色彩在每个环节澎湃奔涌，如此绚丽利器，静候你解锁。
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mask" style="opacity: 1"></div>
+        <img class="bg loaded" src="./assets/section-6-2.jpg" />
+      </div>
+      <!-- 背景遮罩 -->
+      <div
+        class="bg-mask"
+        style="
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          z-index: 1;
+        "
+      ></div>
+    </section>
+    <script>
+      const bgEl = document.querySelector(".bg");
+      const img1 = document.querySelector(".wrap-main img:nth-child(1)");
+      const img2 = document.querySelector(".wrap-main img:nth-child(2)");
+      const img3 = document.querySelector(".wrap-main img:nth-child(3)");
+      const img4 = document.querySelector(".wrap-main img:nth-child(4)");
+      window.addEventListener("mousemove", (e) => {
+        // 鼠标相对页面的位置
+        let x = e.pageX;
+        let y = e.pageY;
+        // section-2 容器相对视口位置
+        let parentX = bgEl.offsetLeft;
+        let parentY = bgEl.offsetTop;
+        let isYOut = y < parentY || y > parentY + bgEl.clientHeight;
+        let isXOut = x < parentX || x > parentX + bgEl.clientWidth;
+        if (isXOut || isYOut) {
+          // console.log("移出去了");
+          return;
+        }
+        console.log(x - parentX, y - parentY);
+        // 鼠标从左到右 x 偏移 20px => -20px，鼠标位置(x) 0 => 视口宽度(w)，得出公式：20 - (40*(x/w))
+        // 鼠标从上到下 y 偏移 2px => -2px, 鼠标位置(y) 0 => 视口高度(h)，得出公式：2 - (4*(y/h))
+        let mouseX = x - parentX;
+        let mouseY = y - parentY;
+        img1.style.transform = `translate(${
+          20 - 40 * (mouseX / screen.width)
+        }px,${4 - 8 * (mouseY / screen.height)}px)`;
+        img2.style.transform = `translate(${
+          28 - 56 * (mouseX / screen.width)
+        }px,${6 - 12 * (mouseY / screen.height)}px)`;
+        img3.style.transform = `translateX(${
+          30 - 60 * (mouseX / screen.width)
+        }px`;
+        // 鼠标从左到右， -14px => 14px，鼠标位置(x) 0 => 视口宽度(w)，-14 + (28*(x/w))
+        // 鼠标从上到下 y 偏移 -2px => 2px, 鼠标位置(y) 0 => 视口高度(h)，得出公式：-2 + (4*(y/h))
+        img4.style.transform = `translate(${
+          -30 + 60 * (mouseX / screen.width)
+        }px,${-6 + 12 * (mouseY / screen.height)}px)`;
+        bgEl.style.transform = `scale(1.2) translate(${
+          -8 + 16 * (mouseX / screen.width)
+        }px,${-2 + 4 * (mouseY / screen.height)}px)`;
+      });
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to(".section-5", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: ".section-5",
+          toggleClass: "active", // 滚动时上下动画
+          end: "+30",
+          scrub: true, // 表示动画可以重复执行改成false表示只执行一次
+          // markers: true, // 绘制开始位置和结束位置的线条
+          // pin: false, // 动画执行期间，页面不进行滚动，动画执行结束后
+        },
+      });
+
+      // section-6 第二个盖住第三个，核心是，第二个 margin-top: -100vh; position:sticky
+      gsap.to(".bg-mask", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: ".section-6-2",
+          start: "top 300px",
+          end: "+200",
+          scrub: true, // 表示动画可以重复执行改成false表示只执行一次
+          // markers: true, // 绘制开始位置和结束位置的线条
+          // pin: false, // 动画执行期间，页面不进行滚动，动画执行结束后
+          onEnterBack() {
+            document.querySelector(".bg-mask").style.opacity = "1";
+            document.querySelector(".bg").style.opacity = "0";
+          },
+          onLeave() {
+            // document.querySelector('.bg-mask').style.opacity = "0"
+            gsap.to(".section-6-2 .inner", {
+              opacity: 1,
+
+              scrollTrigger: {
+                trigger: ".section-6-2",
+                start: "top top",
+                // end: "bottom top",
+                // end: "+300",
+                scrub: true, // 表示动画可以重复执行改成false表示只执行一次
+                // markers: true, // 绘制开始位置和结束位置的线条
+                onEnterBack() {
+                  document.querySelector(".section-6-2").style.position =
+                    "sticky";
+                  document.querySelector(".comp-border-text").style.opacity =
+                    "1";
+                },
+                onLeave() {
+                  document.querySelector(".section-6-2").style.position =
+                    "relative";
+                  document.querySelector(".comp-border-text").style.opacity =
+                    "0";
+                },
+              },
+            });
+            gsap.to(".bg", {
+              opacity: 1,
+              scrollTrigger: {
+                trigger: ".section-6-1",
+                start: "top top",
+                end: "bottom top",
+                // end: "+100",
+                scrub: true, // 表示动画可以重复执行改成false表示只执行一次
+                markers: true, // 绘制开始位置和结束位置的线条
+                // pin: false, // 动画执行期间，页面不进行滚动，动画执行结束后
+                
+              },
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
