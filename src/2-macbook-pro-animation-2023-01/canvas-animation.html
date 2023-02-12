@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body style="height: 1000px">
+<body style="height: 3000px">
     <div id="container">
         <canvas id="canvas" width="308" height="308"></canvas>
         <canvas id="canvas-max" width="308" height="308"></canvas>
@@ -91,7 +91,8 @@
             requestAnimationFrame(() => {
                 let top = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
                 // 根据总滚动高度，以及帧动画图片数量，计算是否是向下滚动
-                const topNum = Math.round(top / (scrollX / count)) // 1000px 6;  500px 2
+                // const topNum = Math.round(top / (scrollX / count)) // 1000px 6;  500px 2
+                const topNum = Math.round(top / 10) // 1000px 6;  500px 2
                 let n = topNum - imgIndex
                 console.log('>>', n, top, topNum, imgIndex)
                 if (n > 0) {
