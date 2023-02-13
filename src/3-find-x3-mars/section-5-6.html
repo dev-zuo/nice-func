@@ -104,6 +104,11 @@
         width: 380px;
         height: 380px;
       }
+      .section-6-2-bg {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+      }
     </style>
     <section id="section-6-1" style="margin-top: 80px">
       <div class="g--container">
@@ -129,10 +134,19 @@
     <!-- Part6: 第二个场景 -->
     <section
       class="section-6-2"
-      style="position: sticky; top: 0; margin-top: -620px; height: 1000px"
+      style="
+        position: relative;
+        margin-top: -620px;
+        height: 100vh;
+        min-height: 500px;
+      "
     >
-      <!-- 背景遮罩上一层，图片  -->
-      <div class="inner" style="opacity: 0; z-index: 2; position: relative">
+      <!-- 背景遮罩上一层，图片，先隐藏，等 1 结束后，再显示  -->
+      <div
+        class="section-6-2-main"
+        style="opacity: 0; z-index: 2; position: relative"
+      >
+        <!-- 文本区域-->
         <div
           class="comp-border-text text-block"
           style="
@@ -160,8 +174,8 @@
             </div>
           </div>
         </div>
-        <div class="mask" style="opacity: 1"></div>
-        <img class="bg loaded" src="./assets/section-6-2.jpg" />
+        <!-- <div class="mask" style="opacity: 1"></div> -->
+        <img class="section-6-2-bg" src="./assets/section-6-2.jpg" />
       </div>
       <!-- 背景遮罩 -->
       <div
@@ -177,6 +191,74 @@
           z-index: 1;
         "
       ></div>
+    </section>
+
+    <section class="section-6-3" style="text-align: center;">
+      <div class="comp-inner" style="padding: 150px 0;">
+        <div class="title">
+          旗舰四摄，致敬探索，记录此刻
+        </div>
+        <div class="detail">
+          两颗 10 亿色 5000 万像素旗舰主摄，场面再大，画面也出色。<br/>
+          60 倍显微镜，带你探索微观世界里的奇观。1300
+          万像素长焦，轻松拉近远方美好。
+        </div>
+      </div>
+      <style>
+        .section-63-a {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .sec-circle {
+            position: absolute;
+            z-index: 1;
+            right: 489px;
+            top: 106px;
+            width: 216px;
+            transition: all 1s;
+        }
+        .sec-circle.active {
+            transform: rotate(180deg);
+        }
+        .sec-bg {
+            width: 999px;
+            height: 888px;
+        }
+        .sec-circle-scale .line {
+            position: absolute;
+            height: 1px;
+            width: 7px;
+            top: 213px;
+            right: 590px;
+            background: #fff;
+            transform-origin: 102px 0;
+        }
+        .sec-line {
+            width: 500px;
+            height: 1px;
+            background: rgba(255,255,255,0.5);
+            -webkit-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            position: absolute;
+            right: 710px;
+            top: 220px;
+        }
+      </style>
+      <div class="section-63-a">
+        <div>
+            <p>超广角</p>
+            <p>显微镜</p>
+        </div>
+        <div class="sec-line"></div>
+        <div class="sec-circle-scale"></div>
+        <img class="sec-circle" src="./assets/section-6-3-1-camera-circle-outer.svg">
+        <img class="sec-bg" src="./assets/section6-3-1-camera.png">
+      </div>
+      <div class="section-63-b"></div>
+      <div class="section-63-c"></div>
+      <div class="section-63-d"></div>
     </section>
     <script>
       const bgEl = document.querySelector(".bg");
@@ -233,62 +315,81 @@
         },
       });
 
-      // section-6 第二个盖住第三个，核心是，第二个 margin-top: -100vh; position:sticky
+      // 时间轴测试
+      //   let tl = gsap.timeline({
+      //     scrollTrigger: {
+      //       trigger: ".section-6-2",
+      //       start: "top 200px",
+      //       end: "+150",
+      //       scrub: true,
+      //       markers: true,
+      //     },
+      //   });
+      //   tl.to(".bg-mask", { opacity: 1 });
+      //   tl.to(".section-6-2-main", { opacity: 1 }); // scrollTrigger 已指定，怎么让这个动画修改对象的属性
+      // section-6 第二个盖住第三个，核心是，第二个 margin-top: -100vh;
+      // fix 在 .gb-mask 结束遮罩 onLeave 钩子中 gsap.to 使用 pin 时，动画回放后再次执行 pin 位置异常问题
+      // 参考：https://codepen.io/GreenSock/pen/YzXdbQo
+      ScrollTrigger.create({
+        trigger: ".section-6-2",
+        start: "top top",
+        end: "bottom top", // 200px past the start
+        pin: ".section-6-2",
+      });
       gsap.to(".bg-mask", {
         opacity: 1,
         scrollTrigger: {
           trigger: ".section-6-2",
-          start: "top 300px",
+          start: "top 200px",
           end: "+200",
           scrub: true, // 表示动画可以重复执行改成false表示只执行一次
-          // markers: true, // 绘制开始位置和结束位置的线条
-          // pin: false, // 动画执行期间，页面不进行滚动，动画执行结束后
-          onEnterBack() {
-            document.querySelector(".bg-mask").style.opacity = "1";
-            document.querySelector(".bg").style.opacity = "0";
-          },
+          //   markers: true, // 绘制开始位置和结束位置的线条
+          onEnterBack() {},
           onLeave() {
-            // document.querySelector('.bg-mask').style.opacity = "0"
-            gsap.to(".section-6-2 .inner", {
+            gsap.to(".section-6-2-main", {
               opacity: 1,
-
               scrollTrigger: {
                 trigger: ".section-6-2",
                 start: "top top",
-                // end: "bottom top",
-                // end: "+300",
-                scrub: true, // 表示动画可以重复执行改成false表示只执行一次
-                // markers: true, // 绘制开始位置和结束位置的线条
-                onEnterBack() {
-                  document.querySelector(".section-6-2").style.position =
-                    "sticky";
-                  document.querySelector(".comp-border-text").style.opacity =
-                    "1";
-                },
-                onLeave() {
-                  document.querySelector(".section-6-2").style.position =
-                    "relative";
-                  document.querySelector(".comp-border-text").style.opacity =
-                    "0";
-                },
-              },
-            });
-            gsap.to(".bg", {
-              opacity: 1,
-              scrollTrigger: {
-                trigger: ".section-6-1",
-                start: "top top",
-                end: "bottom top",
-                // end: "+100",
                 scrub: true, // 表示动画可以重复执行改成false表示只执行一次
                 markers: true, // 绘制开始位置和结束位置的线条
-                // pin: false, // 动画执行期间，页面不进行滚动，动画执行结束后
-                
+                // pin: true,
               },
             });
           },
         },
       });
+
+
+      // 生成摄像头周围刻度 dom
+      const generateLineDom = () => {
+        let len = 240;
+        let fragment = document.createDocumentFragment();
+        for (let i = 0; i < len; i++) {
+            let el = document.createElement('div')
+            console.log('el',el, el.classList)
+            el.classList.add(`id-${i}`)
+            el.classList.add(`line`)
+            // 0 => 239
+            // 1.5deg  => 360deg
+            el.style.transform = `translateX(-102px) rotate(${(i + 1) * 1.5}deg)`
+            fragment.appendChild(el)
+        }
+        document.querySelector('.sec-circle-scale').append(fragment);
+      }
+      gsap.to(".section-6-3", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: ".section-6-3",
+          markers: true,
+          toggleClass: { targets: ".sec-circle", className: "active"},
+          onEnter() {
+            console.log('onEnter')
+            generateLineDom()
+          }
+        }
+    })
+
     </script>
   </body>
 </html>
