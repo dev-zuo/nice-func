@@ -193,68 +193,159 @@
       ></div>
     </section>
 
-    <section class="section-6-3" style="text-align: center;">
-      <div class="comp-inner" style="padding: 150px 0;">
-        <div class="title">
-          旗舰四摄，致敬探索，记录此刻
-        </div>
+    <section class="section-6-3" style="text-align: center">
+      <div class="comp-inner" style="padding: 150px 0">
+        <div class="title">旗舰四摄，致敬探索，记录此刻</div>
         <div class="detail">
-          两颗 10 亿色 5000 万像素旗舰主摄，场面再大，画面也出色。<br/>
+          两颗 10 亿色 5000 万像素旗舰主摄，场面再大，画面也出色。<br />
           60 倍显微镜，带你探索微观世界里的奇观。1300
           万像素长焦，轻松拉近远方美好。
         </div>
       </div>
       <style>
         .section-63-a {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
+          position: relative;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
         }
         .sec-circle {
-            position: absolute;
-            z-index: 1;
-            right: 489px;
-            top: 106px;
-            width: 216px;
-            transition: all 1s;
+          position: absolute;
+          z-index: 1;
+          right: 489px;
+          top: 106px;
+          width: 216px;
+          transition: all 1s;
         }
-        .sec-circle.active {
-            transform: rotate(180deg);
+        .s63-a-sec2 .sec-circle {
+          right: 686px;
+          top: 249px;
+          transform: scale(0.92);
+        }
+        .s63-a-sec.s63-a-sec2.active .sec-circle{
+          right: 686px;
+          top: 249px;
+          transform: scale(0.92) rotate(180deg);
+        }
+        .s63-a-sec.active  .sec-circle {
+          transform: rotate(180deg);
         }
         .sec-bg {
-            width: 999px;
-            height: 888px;
+          width: 999px;
+          height: 888px;
         }
         .sec-circle-scale .line {
-            position: absolute;
-            height: 1px;
-            width: 7px;
-            top: 213px;
-            right: 590px;
-            background: #fff;
-            transform-origin: 102px 0;
+          position: absolute;
+          height: 1px;
+          width: 7px;
+          top: 213px;
+          right: 590px;
+          background: #fff;
+          transform-origin: 102px 0;
+        }
+        .s63-a-sec2 .sec-circle-scale .line {
+          top: 358px;
+          right: 779px;
+          transform-origin: 94px 0;
         }
         .sec-line {
-            width: 500px;
-            height: 1px;
-            background: rgba(255,255,255,0.5);
-            -webkit-transform-origin: 100% 0;
-            transform-origin: 100% 0;
-            position: absolute;
-            right: 710px;
-            top: 220px;
+          width: 533px;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.5);
+          -webkit-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+          position: absolute;
+          right: -367px;
+          top: 110px;
+        }
+        .s63-a-sec2 .sec-line {
+          width: 315px;
+          right: -184px;
+        }
+        .text-view {
+          position: absolute;
+          right: 1074px;
+          top: 106px;
+        }
+        .text-view p {
+          clip-path: inset(0 100% 0 0);
+          transition: clip-path 0.7s;
+        }
+        .text-view p:nth-child(2) {
+          transition: clip-path 1.5s;
+        }
+        .text-view p:nth-child(3) {
+          transition: clip-path 2s;
+        }
+        .s63-a-sec.active .text-view p {
+          clip-path: inset(0 0 0 0);
+        }
+        .s63-a-sec2 .text-view {
+          right: 1075px;
+          top: 231px;
+        }
+        .text-view p {
+          text-align: left;
+        }
+        .s63-a-btns {
+          position: absolute;
+          right: 1200px;
+          font-size: 20px;
+        }
+        .s63-a-btns div {
+          padding: 10px;
+          margin-bottom: 10px;
+          cursor: pointer;
+        }
+        .s63-a-btns div.active {
+          border: 1px solid #666;
+          border-radius: 5px;
         }
       </style>
       <div class="section-63-a">
-        <div>
-            <p>超广角</p>
-            <p>显微镜</p>
+        <div class="s63-a-btns">
+          <div class="active">超广角</div>
+          <div>显微镜</div>
         </div>
-        <div class="sec-line"></div>
-        <div class="sec-circle-scale"></div>
-        <img class="sec-circle" src="./assets/section-6-3-1-camera-circle-outer.svg">
-        <img class="sec-bg" src="./assets/section6-3-1-camera.png">
+        <div class="s63-a-sec s63-a-sec1">
+          <div class="text-view">
+            <p style="font-size: 36px; line-height: 52px; padding-bottom: 20px">
+              超广角
+            </p>
+            <div class="sec-line"></div>
+            <div>
+              <p>5000 万像素超广角</p>
+              <p>Sony IMX766 传感器</p>
+              <p>1/1.56" 感光面积</p>
+            </div>
+          </div>
+          <div class="sec-circle-scale"></div>
+          <img
+            class="sec-circle"
+            src="./assets/section-6-3-1-camera-circle-outer.svg"
+          />
+        </div>
+        <div class="s63-a-sec s63-a-sec2" style="opacity: 0">
+          <div class="text-view">
+            <p style="font-size: 36px; line-height: 52px; padding-bottom: 20px">
+              显微镜
+            </p>
+            <div class="sec-line"></div>
+            <div>
+              <p>300 万像素显微镜</p>
+              <p>f/3.0 光圈</p>
+              <p>
+                60 倍放大<sup>3<sup></sup></sup>
+              </p>
+            </div>
+          </div>
+          <div class="sec-circle-scale"></div>
+          <img
+            class="sec-circle"
+            src="./assets/section-6-3-1-camera-circle-outer.svg"
+          />
+        </div>
+        <img class="sec-bg" src="./assets/section6-3-1-camera.png" />
       </div>
       <div class="section-63-b"></div>
       <div class="section-63-c"></div>
@@ -360,36 +451,71 @@
         },
       });
 
-
       // 生成摄像头周围刻度 dom
-      const generateLineDom = () => {
+      // type 第几个摄像头，默认为 1
+      const generateLineDom = (type = "1") => {
         let len = 240;
         let fragment = document.createDocumentFragment();
         for (let i = 0; i < len; i++) {
-            let el = document.createElement('div')
-            console.log('el',el, el.classList)
-            el.classList.add(`id-${i}`)
-            el.classList.add(`line`)
-            // 0 => 239
-            // 1.5deg  => 360deg
-            el.style.transform = `translateX(-102px) rotate(${(i + 1) * 1.5}deg)`
-            fragment.appendChild(el)
+          let el = document.createElement("div");
+          console.log("el", el, el.classList);
+          el.classList.add(`id-${i}`);
+          el.classList.add(`line`);
+          // 0 => 239
+          // 1.5deg  => 360deg
+          // -102
+          el.style.transform = `translateX(-102px) rotate(${(i + 1) * 1.5}deg)`;
+          fragment.appendChild(el);
         }
-        document.querySelector('.sec-circle-scale').append(fragment);
-      }
+        let parentEl = document.querySelector(
+          `.s63-a-sec${type} .sec-circle-scale`
+        );
+        parentEl.append(fragment);
+      };
       gsap.to(".section-6-3", {
         opacity: 1,
         scrollTrigger: {
           trigger: ".section-6-3",
+          start: 'top 100px',
           markers: true,
-          toggleClass: { targets: ".sec-circle", className: "active"},
+          toggleClass: {
+            targets: ".s63-a-sec1",
+            className: "active",
+          },
           onEnter() {
-            console.log('onEnter')
-            generateLineDom()
-          }
-        }
-    })
+            console.log("onEnter");
+            generateLineDom(); // 第一个摄像头刻度
+            generateLineDom("2"); // 第2个摄像头刻度
+          },
+        },
+      });
 
+      const cameraABtn = document.querySelector(".s63-a-btns div:nth-child(1)");
+      const cameraBBtn = document.querySelector(".s63-a-btns div:nth-child(2)");
+      cameraABtn.addEventListener("click", (e) => {
+        // 切换 active
+        document
+          .querySelectorAll(".s63-a-btns div")
+          .forEach((item) => item.classList.remove("active"));
+        e.target.classList.toggle("active");
+        // 切换文案区域
+        document.querySelector(".s63-a-sec1").style.opacity = "1";
+        document.querySelector(".s63-a-sec1").classList.add("active");
+        document.querySelector(".s63-a-sec2").style.opacity = "0";
+        document.querySelector(".s63-a-sec2").classList.remove("active");
+      });
+      cameraBBtn.addEventListener("click", (e) => {
+        // 切换 active
+        document
+          .querySelectorAll(".s63-a-btns div")
+          .forEach((item) => item.classList.remove("active"));
+        e.target.classList.toggle("active");
+        // 切换文案区域
+        document.querySelector(".s63-a-sec1").style.opacity = "0";
+        document.querySelector(".s63-a-sec1").classList.remove("active");
+        document.querySelector(".s63-a-sec2").style.opacity = "1";
+        document.querySelector(".s63-a-sec2").classList.add("active");
+      });
     </script>
   </body>
 </html>
