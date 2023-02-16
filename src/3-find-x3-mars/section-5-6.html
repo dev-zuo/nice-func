@@ -12,9 +12,10 @@
     <style>
       body {
         margin: 0;
-        height: 8000px;
+        height: 7000px;
         background: #0e0e0e;
         color: white;
+        overflow-x: hidden;
       }
       .bg {
         z-index: 0;
@@ -203,11 +204,19 @@
         </div>
       </div>
       <style>
-        .section-63-a {
-          position: relative;
+        .section-63-a,
+        .section-63-b {
+          position: absolute;
+          top: 0;
+          bottom: 0;
           width: 100%;
           display: flex;
           justify-content: space-between;
+          height: 100vh;
+          min-height: 800px;
+        }
+        .section-63-b {
+          z-index: 10;
         }
         .sec-circle {
           position: absolute;
@@ -222,12 +231,12 @@
           top: 249px;
           transform: scale(0.92);
         }
-        .s63-a-sec.s63-a-sec2.active .sec-circle{
+        .s63-a-sec.s63-a-sec2.active .sec-circle {
           right: 686px;
           top: 249px;
           transform: scale(0.92) rotate(180deg);
         }
-        .s63-a-sec.active  .sec-circle {
+        .s63-a-sec.active .sec-circle {
           transform: rotate(180deg);
         }
         .sec-bg {
@@ -293,7 +302,7 @@
           font-size: 20px;
         }
         .s63-a-btns div {
-          padding: 10px;
+          padding: 10px 20px;
           margin-bottom: 10px;
           cursor: pointer;
         }
@@ -301,55 +310,136 @@
           border: 1px solid #666;
           border-radius: 5px;
         }
+        .section-63 {
+          position: relative;
+        }
+        .section-63-b {
+          --clip: 100%;
+          transform: scale(1.15);
+          clip-path: inset(var(--clip) 0 0);
+        }
+        .section-63-b .sec-bg {
+          width: 100%;
+          height: 100%;
+        }
+        .section-63-b .text-view {
+          right: 900px;
+          top: 220px;
+        }
+        .section-63-b .text-view .title {
+          font-size: 35px;
+          line-height: 54px;
+          text-align: left;
+        }
+        .section-63-b .text-view .name {
+          font-size: 25px;
+          line-height: 36px;
+        }
+        .section-63-b .text-view .info {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+        .text-view .spots {
+          display: flex;
+          flex-wrap: wrap;
+          width: 357px;
+          padding-top: 30px;
+        }
+        .text-view .spots .item {
+          text-align: left;
+          width: 49%;
+          margin-top: 25px;
+        }
+        .section-63-b .text-view > div {
+          clip-path: inset(0 50% 0 50%);
+          transition: clip-path 0.7s;
+        }
+        .section-63-b .text-view.active > div {
+          clip-path: inset(0 0 0 0);
+        }
       </style>
-      <div class="section-63-a">
-        <div class="s63-a-btns">
-          <div class="active">超广角</div>
-          <div>显微镜</div>
-        </div>
-        <div class="s63-a-sec s63-a-sec1">
-          <div class="text-view">
-            <p style="font-size: 36px; line-height: 52px; padding-bottom: 20px">
-              超广角
-            </p>
-            <div class="sec-line"></div>
-            <div>
-              <p>5000 万像素超广角</p>
-              <p>Sony IMX766 传感器</p>
-              <p>1/1.56" 感光面积</p>
-            </div>
+      <div class="section-63">
+        <div class="section-63-a">
+          <div class="s63-a-btns">
+            <div class="active">超广角</div>
+            <div>显微镜</div>
           </div>
-          <div class="sec-circle-scale"></div>
-          <img
-            class="sec-circle"
-            src="./assets/section-6-3-1-camera-circle-outer.svg"
-          />
-        </div>
-        <div class="s63-a-sec s63-a-sec2" style="opacity: 0">
-          <div class="text-view">
-            <p style="font-size: 36px; line-height: 52px; padding-bottom: 20px">
-              显微镜
-            </p>
-            <div class="sec-line"></div>
-            <div>
-              <p>300 万像素显微镜</p>
-              <p>f/3.0 光圈</p>
-              <p>
-                60 倍放大<sup>3<sup></sup></sup>
+          <div class="s63-a-sec s63-a-sec1">
+            <div class="text-view">
+              <p
+                style="font-size: 36px; line-height: 52px; padding-bottom: 20px"
+              >
+                超广角
               </p>
+              <div class="sec-line"></div>
+              <div>
+                <p>5000 万像素超广角</p>
+                <p>Sony IMX766 传感器</p>
+                <p>1/1.56" 感光面积</p>
+              </div>
+            </div>
+            <div class="sec-circle-scale"></div>
+            <img
+              class="sec-circle"
+              src="./assets/section-6-3-1-camera-circle-outer.svg"
+            />
+          </div>
+          <div class="s63-a-sec s63-a-sec2" style="opacity: 0">
+            <div class="text-view">
+              <p
+                style="font-size: 36px; line-height: 52px; padding-bottom: 20px"
+              >
+                显微镜
+              </p>
+              <div class="sec-line"></div>
+              <div>
+                <p>300 万像素显微镜</p>
+                <p>f/3.0 光圈</p>
+                <p>
+                  60 倍放大<sup>3<sup></sup></sup>
+                </p>
+              </div>
+            </div>
+            <div class="sec-circle-scale"></div>
+            <img
+              class="sec-circle"
+              src="./assets/section-6-3-1-camera-circle-outer.svg"
+            />
+          </div>
+          <img class="sec-bg" src="./assets/section6-3-1-camera.png" />
+        </div>
+        <div class="section-63-b">
+          <div class="text-view">
+            <div class="title comp-angle-block-fade-in-left fade-in">
+              10 亿色臻彩屏，
+            </div>
+            <div class="title comp-angle-block-fade-in-left fade-in">
+              震撼色彩，流畅奔涌
+            </div>
+            <div class="spots">
+              <div class="item">
+                <div class="name">10.7 亿色</div>
+                <div class="info">色彩显示</div>
+              </div>
+              <div class="item">
+                <div class="name">120Hz</div>
+                <div class="info">智能动态帧率<sup>4</sup></div>
+              </div>
+              <div class="item">
+                <div class="name">O1</div>
+                <div class="info">超感画质引擎<sup>5</sup></div>
+              </div>
+              <div class="item">
+                <div class="name">O-Sync</div>
+                <div class="info">超频响应<sup>6</sup></div>
+              </div>
             </div>
           </div>
-          <div class="sec-circle-scale"></div>
-          <img
-            class="sec-circle"
-            src="./assets/section-6-3-1-camera-circle-outer.svg"
-          />
+          <img class="sec-bg" src="./assets/section6-3-2-hvga.png" />
         </div>
-        <img class="sec-bg" src="./assets/section6-3-1-camera.png" />
+        <div class="section-63-c"></div>
+        <div class="section-63-d"></div>
       </div>
-      <div class="section-63-b"></div>
-      <div class="section-63-c"></div>
-      <div class="section-63-d"></div>
     </section>
     <script>
       const bgEl = document.querySelector(".bg");
@@ -443,7 +533,7 @@
                 trigger: ".section-6-2",
                 start: "top top",
                 scrub: true, // 表示动画可以重复执行改成false表示只执行一次
-                markers: true, // 绘制开始位置和结束位置的线条
+                // markers: true, // 绘制开始位置和结束位置的线条
                 // pin: true,
               },
             });
@@ -458,7 +548,7 @@
         let fragment = document.createDocumentFragment();
         for (let i = 0; i < len; i++) {
           let el = document.createElement("div");
-          console.log("el", el, el.classList);
+          //   console.log("el", el, el.classList);
           el.classList.add(`id-${i}`);
           el.classList.add(`line`);
           // 0 => 239
@@ -476,8 +566,10 @@
         opacity: 1,
         scrollTrigger: {
           trigger: ".section-6-3",
-          start: 'top 100px',
-          markers: true,
+          start: "top 100px",
+          end: "+800",
+          //   markers: true,
+          scrub: true,
           toggleClass: {
             targets: ".s63-a-sec1",
             className: "active",
@@ -515,6 +607,34 @@
         document.querySelector(".s63-a-sec1").classList.remove("active");
         document.querySelector(".s63-a-sec2").style.opacity = "1";
         document.querySelector(".s63-a-sec2").classList.add("active");
+      });
+
+      /* 场景切换 gsap 固定页面 + clip-path */
+      gsap.to(".section-63-b", {
+        // duration: 10,
+        // gsap.to 设置 clip-path 属性变更
+        // https://greensock.com/forums/topic/32322-clip-path-to-gsap-animation/
+        // 变更 css 变量
+        "--clip": "0", //clip-path(100% 0 0) => clip-path(0 0 0)
+        scale: 1,
+        scrollTrigger: {
+          trigger: ".section-63",
+          start: "top top",
+          end: "+800",
+          //   markers: true,
+          scrub: true,
+          pin: true,
+          onEnterBack() {
+            document
+              .querySelector(".section-63-b .text-view")
+              .classList.remove("active");
+          },
+          onLeave() {
+            document
+              .querySelector(".section-63-b .text-view")
+              .classList.add("active");
+          },
+        },
       });
     </script>
   </body>
