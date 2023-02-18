@@ -17,6 +17,7 @@
         height: 8000px;
         display: flex;
         flex-direction: column;
+        overflow-x: hidden;
       }
       body > img {
         width: 100%;
@@ -89,7 +90,7 @@
         top: 0;
         right: 0;
         width: 910px;
-        clip-path: inset(0 0 0 100%);
+        clip-path: inset(0 0 0 100%); /* 左侧裁剪 100% => 左侧裁剪 0%， 从右到左*/
         opacity: 0;
         transition: clip-path 0.8s, opacity 0.8s;
       }
@@ -280,6 +281,7 @@
       .section-4 img {
         height: 900px;
       }
+      /* 镜头，圆圈放大 */
       .abs.s-4-1 {
         z-index: 3;
         object-fit: cover;
@@ -293,16 +295,18 @@
       .section-4.active .abs.s-4-1 {
         transform: scale(5);
       }
+      /* 滤镜效果背景 */
       .abs.s-4-2 {
         z-index: 2;
-        opacity: 0;
-        clip-path: inset(0 100% 0 0);
+        opacity: 0; /* 最开始隐藏 */
+        clip-path: inset(0 100% 0 0); /* 从左到右 */
         transition: clip-path 1s cubic-bezier(.13,.52,.56,1);
       }
       .abs.s-4-2.active {
-        opacity: 1;
+        opacity: 1; /* 添加 active 后显示 */
         clip-path: inset(0 0 0 0);
       }
+      /* 浅色背景，由近到远，scale 1.3 => 1 */
       .abs.s-4-3 {
         z-index: 1;
         transform: scale(1.3);
@@ -311,6 +315,7 @@
       .section-4.active .abs.s-4-3 {
         transform: scale(1)
       }
+      /* 文字动画 */
       .comp-inner {
         position: absolute;
         top: 25%;
@@ -319,7 +324,7 @@
         color: white;
         font-size: 35px;
         line-height: 54px;
-        clip-path: inset(0 100% 0 0); /* 从左到右 */
+        clip-path: inset(0 100% 0 0); /* 利用 clip-path 隐藏，active 后从左到右显示 */
         transition: all 1s;
         overflow: hidden;
         /* transform: translateX(-100%); */
@@ -584,16 +589,20 @@
           scrub: 1,
           onEnter() {
             setTimeout(() => {
+              // 文字动画
               document.querySelector('.comp-inner').classList.add('active')
             }, 500)
             setTimeout(() => {
+              // 深色滤镜
               document.querySelector('.abs.s-4-2').classList.add('active')
             },1000)
           },
           onLeave() {
+            // 镜头圆圈
             document.querySelector('.abs.s-4-1').style.display = 'none'
           },
           onEnterBack() {
+            // 镜头圆圈
             document.querySelector('.abs.s-4-1').style.display = 'block'
           }
         },

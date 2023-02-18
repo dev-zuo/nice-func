@@ -1,3 +1,4 @@
+<!-- 最后一个场景不使用 clip-path 来切换场景，使用 height -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -207,13 +208,20 @@
         .section-63-a,
         .section-63-b {
           position: absolute;
-          top: 0;
-          bottom: 0;
+          /* top: 0; */
+          /* bottom: 0; */
           width: 100%;
           display: flex;
           justify-content: space-between;
-          height: 100vh;
-          min-height: 800px;
+          /* height: 100vh;
+          min-height: 800px; */
+          bottom: 0;
+          overflow: hidden;
+        }
+        .section-63-a {
+            top: 0;
+            /* height: 100vh;
+            min-height: 800px; */
         }
         .section-63-b {
           z-index: 10;
@@ -243,6 +251,7 @@
         .sec-bg {
           width: 999px;
           height: 888px;
+          object-fit: cover;
         }
         .sec-circle-scale .line {
           position: absolute;
@@ -315,11 +324,15 @@
         }
         .section-63 {
           position: relative;
+          height: 100vh;
+          min-height: 800px;
         }
         .section-63-b {
-          --clip: 100%;
+          /* --clip: 100%; */
           transform: scale(1.15);
-          clip-path: inset(var(--clip) 0 0);
+          /* clip-path: inset(var(--clip) 0 0); */
+          --gsapHeight: 0;
+          height: var(--gsapHeight);
         }
         .section-63-b .sec-bg {
           width: 100%;
@@ -618,7 +631,8 @@
         // gsap.to 设置 clip-path 属性变更
         // https://greensock.com/forums/topic/32322-clip-path-to-gsap-animation/
         // 变更 css 变量
-        "--clip": "0", //clip-path(100% 0 0) => clip-path(0 0 0)
+        // "--clip": "0", //clip-path(100% 0 0) => clip-path(0 0 0)
+        "--gsapHeight": '100%',
         scale: 1,
         scrollTrigger: {
           trigger: ".section-63",
@@ -638,6 +652,25 @@
               .classList.add("active");
           },
         },
+      });
+
+    //   gsap.to(".section-63", {
+    //     opacity: 1,
+    //     scrollTrigger: {
+    //       trigger: ".section-63-b",
+    //       start: "top top",
+    //       end: "+800",
+    //       //   markers: true,
+    //       scrub: true,
+    //       pin: true,
+    //     },
+    //   });
+      ScrollTrigger.create({
+        trigger: ".section-63-b",
+        start: "top top",
+        end: "+800px", // 200px past the start
+        markers: true,
+        pin: ".section-63",
       });
     </script>
   </body>
