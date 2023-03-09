@@ -1,0 +1,147 @@
+
+body {
+    padding-top: 130px;
+}
+.top-info {
+    display: flex;
+    justify-content:space-between;
+    max-width: 980px;
+    margin: 0 auto 60px;
+    color: #1d1d1f;
+    .top-info-title {
+        font-size: 46px;
+        line-height: 1; // 让文字直接对其顶部
+        font-weight: bold;
+    }
+    .top-info-right {
+        display: flex;
+        margin-right: 10px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .colors {
+        position: relative;
+        display: flex;
+        margin-left: 10px;
+        #midnight { background-color: #31353a; }
+        #starlight { background-color: #f0ece8; }
+        #red { background-color: #e11c2a; }
+        #blue { background-color: #c0cfde; }
+        #purple { background-color: #e7d7e9; }
+        #yellow { background-color: #f5e488; }
+        .colors-item {
+            display: inline-flex;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        & > label {
+            margin-left: 0.24em;
+            width: 28px;
+            height: 28px;
+            padding: 2px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+        label.active {
+            border: 2px solid #0071e3 
+        }
+        .new-style {
+            position: absolute;
+            right: 1px;
+            top: 30px;
+            font-size: 12px;
+            font-weight: normal;
+            color: #bf4800;
+        }
+    }
+}
+
+.iphone-images {
+    position: relative;
+    width: 1144px;
+    height: 574px;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: matrix(1.04327, -0.464493, 0.464493, 1.04327, -768.586, 130.872);
+    figure {
+        transform-origin: 0 0;
+        position: absolute;
+    }
+    .midnight {
+        left: 8px;
+        top: 233px;
+        width: 532px;
+        height: 562px;
+        background-size: 532px 562px;
+        background-repeat: no-repeat;
+        background-image: url(/4-iphone14-yellow-colors-switch/images/hero_midnight.jpg);
+        // 解决图片有白色空白，遮挡其他图片的问题
+        mask-image: url(/4-iphone14-yellow-colors-switch/images/midnight_mask.png);
+        -webkit-mask-image: url(/4-iphone14-yellow-colors-switch/images/midnight_mask.png);
+        transform: scale(0.51);
+    }
+    .starlight {
+        left: 111px;
+        top: 118px;
+        width: 518px;
+        height: 582px;
+        background-size: 518px 582px;
+        background-repeat: no-repeat;
+        background-image: url(/4-iphone14-yellow-colors-switch/images/hero_starlight.jpg);
+        mask-image: url(/4-iphone14-yellow-colors-switch/images/starlight_mask.png);
+        -webkit-mask-image: url(/4-iphone14-yellow-colors-switch/images/starlight_mask.png);
+        transform: scale(0.52);
+    }
+    .red {
+        left: 259px;
+        top: 49px;
+        width: 450px;
+        height: 568px;
+        background-size: 450px 568px;
+        background-repeat: no-repeat;
+        background-image: url(/4-iphone14-yellow-colors-switch/images/hero_red.jpg);
+        mask-image: url(/4-iphone14-yellow-colors-switch/images/red_mask.png);
+        -webkit-mask-image: url(/4-iphone14-yellow-colors-switch/images/red_mask.png);
+        transform: scale(0.54);
+    }
+    .blue {
+        left: 437px;
+        top: 22px;
+        width: 366px;
+        height: 578px;
+        background-size: 366px 578px;
+        background-repeat: no-repeat;
+        background-image: url(/4-iphone14-yellow-colors-switch/images/hero_blue.jpg);
+        mask-image: url(/4-iphone14-yellow-colors-switch/images/blue_mask.png);
+        -webkit-mask-image: url(/4-iphone14-yellow-colors-switch/images/blue_mask.png);
+        transform: scale(0.573);
+    }
+    .purple {
+        left: 629px;
+        top: 18px;
+        width: 336px;
+        height: 620px;
+        background-size: 336px 620px;
+        background-repeat: no-repeat;
+        background-image: url(/4-iphone14-yellow-colors-switch/images/hero_purple.jpg);
+        mask-image: url(/4-iphone14-yellow-colors-switch/images/purple_mask.png);
+        -webkit-mask-image: url(/4-iphone14-yellow-colors-switch/images/purple_mask.png);
+        transform: scale(0.67);
+        // transform: matrix(0.67, 0, 0, 0.67, 0, 0);
+    }
+    .yellow {
+        left: 781px;
+        top: 68px;
+        width: 428px;
+        height: 616px;
+        background-size: 428px 616px;
+        background-repeat: no-repeat;
+        background-image: url(/4-iphone14-yellow-colors-switch/images/hero_yellow.jpg);
+        mask-image: url(/4-iphone14-yellow-colors-switch/images/yellow_mask.png);
+        -webkit-mask-image: url(/4-iphone14-yellow-colors-switch/images/yellow_mask.png);
+        transform: translate(0.6077686218%,-3.4468271355%) scale(0.88)!important;
+    }
+}
