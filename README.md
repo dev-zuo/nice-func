@@ -1,13 +1,13 @@
 # nice-func
 
-Try to achieve nice function in the web page.
+尝试实现一些让人耳目一新、感觉很 nice 的网页内容、动效
 
-* [iphone 14 新款黄色首屏手机颜色切换动效实现]()
-* [OPPO Find X3 火星版官网：使用 GSAP 和 clip-path 实现 5 种场景切换动效](#find-x3-火星版官网动效实现)
-* [MacBook Pro 新品发布官网动画效果实现(2023年01月)](#macbook-pro-新品发布官网动画效果实现2023年01月)
-* [vivo iQOO Neo7 向下滚动切换手机颜色效果](#vivo-iqoo-neo7-向下滚动切换手机颜色效果)
+* [4. iPhone14 新配色官网首屏动效实现](#iPhone14-新配色官网首屏动效实现)
+* [3. OPPO Find X3 火星版官网：使用 GSAP 和 clip-path 实现 5 种场景切换动效](#find-x3-火星版官网动效实现)
+* [2. MacBook Pro 新品发布官网动画效果实现(2023年01月)](#macbook-pro-新品发布官网动画效果实现2023年01月)
+* [1. vivo iQOO Neo7 向下滚动切换手机颜色效果](#vivo-iqoo-neo7-向下滚动切换手机颜色效果)
 
-## iphone 14 新款黄色官网色号切换动效实现
+## 4. iPhone14 新配色官网首屏动效实现
 
 核心 transform: matrix /ˈmeɪtrɪks/
 
@@ -15,6 +15,7 @@ Try to achieve nice function in the web page.
 
 ```js
 // 图片间距，靠 scale: 56% 这种缩放做出来的
+// 图片白色边框去除，使用 mask-image
 
 // focus 黄色 iphone 时，父元素样式
 transform: matrix(1.04327, -0.464493, 0.464493, 1.04327, -768.586, 130.872);
@@ -28,12 +29,12 @@ transform: matrix(0.86, 0, 0, 0.86, 0, 0);
 0.86 0 0
 0 0.86 0
 0 0 1
-```
 
-```js
-// active 父元素偏移
-// yellow transform: rotate(-24deg) scale(1.142) translate(-661px, -170px);
-// 
+transform: matrix(1, 0, 0, 1, 0, -2480.12);
+// translateY(Y):
+1 0 0
+0 1 -2480.12
+0 0 1
 ```
 
 ```js
@@ -58,7 +59,64 @@ transform: matrix(1.64561, 0.755092, -0.755092, 1.64561, -364.436, 307.051);
 transform: scale(1.811) rotate(24deg) translate(-120px, 241px);
 ```
 
-## Find X3 火星版官网动效实现
+进入页面后动画
+
+```js
+const colorsMap = {
+  midnight: "午夜色",
+  starlight: "星光色",
+  red: "红色",
+  blue: "蓝色",
+  purple: "紫色",
+  yellow:  "黄色"
+};
+
+window.addEventListener('load', async () => {
+  // 页面加载完成后，逐一显示 iphone 图片
+  for (let color in colorsMap) {
+    console.log('start')
+    // await new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve()
+    //   }, 50)
+    // })
+    await new Promise((r) => setTimeout(r, 50))
+    console.log(color)
+    document.querySelector(`.iphone-images .${color}`).style.opacity = '1';
+  }
+  await new Promise((r) => setTimeout(r, 500)) // 停留 0.5s
+  document.querySelector('#yellow').click() // focus 到黄色
+  document.querySelector('.new-style').style.display = 'block'; // 显示新款文案
+})
+```
+
+切换颜色
+
+```js
+// 当 colors 点击，如果是 span 元素
+// 现将所有的 label 上的 active 移除。在将其 parent 节点加上 active
+document.querySelector('.colors').addEventListener('click', (e) => {
+  if (e.target.nodeName === 'SPAN') {
+    // 处理右上角颜色切换
+    document.querySelectorAll('.colors label').forEach(item => {
+      item.classList.remove('active')
+    })
+    e.target.parentNode.classList.add('active')
+    document.querySelector('#color-text').innerText = colorsMap[e.target.id]
+
+    // 中间图片 active 处理
+    document.querySelectorAll('.iphone-images figure').forEach(item => {
+      item.classList.remove('active')
+    })
+    let curImg = document.querySelector(`.iphone-images .${e.target.id}`)
+    curImg.classList.add('active')
+    // 给图片的父元素增加自定义属性值
+    document.querySelector(`.iphone-images`).dataset.active = e.target.id
+  }
+})
+```
+
+## 3. Find X3 火星版官网动效实现
 
 使用 GSAP 和 clip-path 实现 5 种场景切换动效
 
@@ -471,7 +529,7 @@ gsap.to(".section-3", {
 
 ![3-3-find-x3-s5-6.gif](./src/images/3-3-find-x3-s5-6.gif)
 
-## MacBook Pro 新品发布官网动画效果实现(2023年01月)
+## 2. MacBook Pro 新品发布官网动画效果实现(2023年01月)
 
 ![2-1-macbook-pro-video-1.gif](./src/images/2-1-macbook-pro-video-1.gif)
 
@@ -631,7 +689,7 @@ document.querySelectorAll('ul li').forEach(item => {
 </script>
 ```
 
-## vivo iQOO Neo7 向下滚动切换手机颜色效果
+## 1. vivo iQOO Neo7 向下滚动切换手机颜色效果
 
 ![vivo-scroll-switch-phone-color.gif](./src/images/1-vivo-scroll-switch-phone-color.gif)
 
