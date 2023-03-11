@@ -1,70 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet/less" type="text/css" href="./styles.less" />
-    <script src="/lib/less.min.js"></script>
-  </head>
-  <body>
-    <div class="top-info">
-      <div class="top-info-title">神技能爆满</div>
-      <div class="top-info-right">
-        <div id="color-text">黄色</div>
-        <div class="colors">
-          <label class="active">
-            <span id="midnight" class="colors-item"></span>
-          </label>
-          <label>
-            <span id="starlight" class="colors-item"></span>
-          </label>
-          <label>
-            <span id="red" class="colors-item"></span>
-          </label>
-          <label>
-            <span id="blue" class="colors-item"></span>
-          </label>
-          <label>
-            <span id="purple" class="colors-item"></span>
-          </label>
-          <label>
-            <span id="yellow" class="colors-item"></span>
-          </label>
-          <div class="new-style">新款</div>
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet/less" type="text/css" href="./styles.less" />
+  <script src="/lib/less.min.js"></script>
+</head>
+
+<body>
+  <div class="top-info">
+    <div class="top-info-title">神技能爆满</div>
+    <div class="top-info-right">
+      <div id="color-text"></div>
+      <div class="colors">
+        <label>
+          <span id="midnight" class="colors-item"></span>
+        </label>
+        <label>
+          <span id="starlight" class="colors-item"></span>
+        </label>
+        <label>
+          <span id="red" class="colors-item"></span>
+        </label>
+        <label>
+          <span id="blue" class="colors-item"></span>
+        </label>
+        <label>
+          <span id="purple" class="colors-item"></span>
+        </label>
+       <label>
+          <span id="yellow" class="colors-item"></span>
+        </label>
+        <div class="new-style">新款</div>
       </div>
     </div>
-    <div class="iphone-images">
-        <figure class="midnight"></figure>
-        <figure class="starlight"></figure>
-        <figure class="red"></figure>
-        <figure class="blue"></figure>
-        <figure class="purple"></figure>
-        <figure class="yellow"></figure>
-    </div>
-    <script>
-      const colorsMap = {
-        midnight: "午夜色",
-        starlight: "星光色",
-        red: "红色",
-        blue: "蓝色",
-        purple: "紫色",
-        yellow: "黄色",
-      };
+  </div>
+  <div class="iphone-images" data-active="">
+    <figure class="midnight"></figure>
+    <figure class="starlight"></figure>
+    <figure class="red"></figure>
+    <figure class="blue"></figure>
+    <figure class="purple"></figure>
+    <figure class="yellow"></figure>
+  </div>
+  <script>
+    const colorsMap = {
+      midnight: "午夜色",
+      starlight: "星光色",
+      red: "红色",
+      blue: "蓝色",
+      purple: "紫色",
+      yellow:  "黄色"
+    };
 
-      // 当 colors 点击，如果是 span 元素
-      // 现将所有的 label 上的 active 移除。在将其 parent 节点加上 active
-      document.querySelector('.colors').addEventListener('click', (e) => {
-        if (e.target.nodeName === 'SPAN') {
-            document.querySelectorAll('.colors label').forEach(item => {
-                item.classList.remove('active')
-            })
-            e.target.parentNode.classList.add('active')
-            document.querySelector('#color-text').innerText = colorsMap[e.target.id]
-        }
-      })
-    </script>
-  </body>
+    window.addEventListener('load', async () => {
+      // 页面加载完成后，逐一显示 iphone 图片
+      for (let color in colorsMap) {
+        console.log('start')
+        // await new Promise((resolve, reject) => {
+        //   setTimeout(() => {
+        //     resolve()
+        //   }, 50)
+        // })
+        await new Promise((r) => setTimeout(r, 50))
+        console.log(color)
+        document.querySelector(`.iphone-images .${color}`).style.opacity = '1';
+      }
+      await new Promise((r) => setTimeout(r, 500)) // 停留 0.5s
+      document.querySelector('#yellow').click() // focus 到黄色
+      document.querySelector('.new-style').style.display = 'block'; // 显示新款文案
+    })
+
+    // 当 colors 点击，如果是 span 元素
+    // 现将所有的 label 上的 active 移除。在将其 parent 节点加上 active
+    document.querySelector('.colors').addEventListener('click', (e) => {
+      if (e.target.nodeName === 'SPAN') {
+        // 处理右上角颜色切换
+        document.querySelectorAll('.colors label').forEach(item => {
+          item.classList.remove('active')
+        })
+        e.target.parentNode.classList.add('active')
+        document.querySelector('#color-text').innerText = colorsMap[e.target.id]
+
+        // 中间图片 active 处理
+        document.querySelectorAll('.iphone-images figure').forEach(item => {
+          item.classList.remove('active')
+        })
+        let curImg = document.querySelector(`.iphone-images .${e.target.id}`)
+        curImg.classList.add('active')
+        // 给图片的父元素增加自定义属性值
+        document.querySelector(`.iphone-images`).dataset.active = e.target.id
+      }
+    })
+  </script>
+</body>
+
 </html>

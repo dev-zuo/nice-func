@@ -14,7 +14,48 @@ Try to achieve nice function in the web page.
 来源：[iPhone 14 和 iPhone 14 Plus - Apple (中国大陆)](https://www.apple.com.cn/iphone-14/)
 
 ```js
-图片间距，靠 scale: 56% 这种缩放做出来的
+// 图片间距，靠 scale: 56% 这种缩放做出来的
+
+// focus 黄色 iphone 时，父元素样式
+transform: matrix(1.04327, -0.464493, 0.464493, 1.04327, -768.586, 130.872);
+// transform matrix重点解析 https://zhuanlan.zhihu.com/p/74279787
+// rotate、scale、translate 3 个矩阵相乘，得到上面的 matrix 的 6 个参数
+transform: rotate(-24deg) scale(1.142) translate(-661px, -170px);
+// 由于 matrix 结果很难逆向，使用手动方式，测试出对应的角度，偏移具体值。
+
+transform: matrix(0.86, 0, 0, 0.86, 0, 0);
+// 对应矩阵如下，等价于 scale(0.86, 0.86):
+0.86 0 0
+0 0.86 0
+0 0 1
+```
+
+```js
+// active 父元素偏移
+// yellow transform: rotate(-24deg) scale(1.142) translate(-661px, -170px);
+// 
+```
+
+```js
+// 紫色 matrix 逆向
+transform: matrix(1.3532, -0.192071, 0.192071, 1.3532, -649.839, 140.245);
+transform: scale(1.38) translate(-462px, 95px) rotate(-9deg); // 手工测试
+// 1、应用该样式，记录元素宽高，再通过设置 scale 调整达到对应宽高，得到 scale(x) 值
+// 2、观察 iphone 角度，得到 rotate  
+// 3、根据位置得到 x, y 偏移
+
+// 根据 mdn 文档来看 https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix
+transform: matrix(scaleX(), skewY(), skewX(), scaleY(), translateX(), translateY())
+// 尝试转换 purple 位置，发现有偏差，还是按照之前的手动还原来还原值
+transform: matrix(1.3532, -0.192071, 0.192071, 1.3532, -649.839, 140.245);
+transform: scale(1.3532) skewY(-0.192071deg) skewX(0.192071deg) translate(-649.839px, 140.245px);
+
+// 蓝色
+transform: matrix(1.60574, 0.269279, -0.269279, 1.60574, -510.662, 196.845);
+transform: scale(1.619) rotate(10deg) translate(-302px, 173px);
+// 红色
+transform: matrix(1.64561, 0.755092, -0.755092, 1.64561, -364.436, 307.051);
+transform: scale(1.811) rotate(24deg) translate(-120px, 241px);
 ```
 
 ## Find X3 火星版官网动效实现
