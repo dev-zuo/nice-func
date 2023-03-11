@@ -13,6 +13,8 @@
 
 来源：[iPhone 14 和 iPhone 14 Plus - Apple (中国大陆)](https://www.apple.com.cn/iphone-14/)
 
+![4-1-iphone14-yellow.gif](./src/images/4-1-iphone14-yellow.gif)
+
 ```js
 // 图片间距，靠 scale: 56% 这种缩放做出来的
 // 图片白色边框去除，使用 mask-image
