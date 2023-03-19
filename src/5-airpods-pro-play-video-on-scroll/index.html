@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>play video </title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .scrolly-video-wrap {
+        display: flex;
+        justify-content: center;
+        height: 300vh;
+      }
+
+      #scrolly-video {
+        width: 1200px;
+        height: 882px;
+        top: 10px !important;
+        clip-path: inset(0 2px 2px 0); /* 去除 canvas 右/下 黑边 */
+        background: #f5f5f7;
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- <video src="./assets/Honeycam-res.webm" autoplay muted id="v1"></video> -->
+    <div class="scrolly-video-wrap">
+      <div id="scrolly-video"></div>
+    </div>
+    <script src="./scrollyVideo.min.js"></script>
+    <script type="text/javascript">
+      // https://github.com/dkaoster/scrolly-video
+      new ScrollyVideo({
+        scrollyVideoContainer: "scrolly-video",
+        // src: "airpods-pro-bg.webm",
+        src: "airpods-pro.webm", // 来源 // https://www.apple.com.cn/airpods-pro/
+        full: false,
+      });
+    </script>
+  </body>
+</html>

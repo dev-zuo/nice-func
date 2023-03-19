@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5-airpods-pro-play-video-on-scroll</title>
+    <link rel="stylesheet/less" type="text/css" href="./styles.less" />
+    <script src="../lib/less.min.js"></script>
+  </head>
+  <body>
+    <div class="video-wrap">
+      <video
+        id="vid"
+        src="./airpods-pro.webm"
+        muted
+        style="width: 690px; height: 512px"
+      ></video>
+      <div class="step-1">
+        新的 <span class="green">U1 芯片</span>可以让你<span class="white"
+          >精确查找</span
+        >充电盒，帮你准确定位它。你还可使用查找 app 近距离查找 AirPods
+        Pro，看看它藏在了哪里5。
+      </div>
+      <div class="step-2">
+        <span class="line"></span>
+        <p>
+          <span class="white">挂绳孔</span
+          >方便你将充电盒系在背包或手提包上，这样就能随手取用耳机，随时沉浸在美妙的声音里6。
+        </p>
+      </div>
+      <div class="step-3">
+        <span class="line"></span>
+        <p>
+          <span class="white">内置扬声器</span>可以播放声音来帮你轻松定位充电盒，还有<span class="green">全新的铃音</span>，提示你电池电量低或是配对完成。
+        </span>
+      </div>
+      <div class="step-4">
+        <p>
+          AirPods Pro 和 MagSafe 充电盒都具备 <span class="white">IPX4 级别抗汗抗水性能7。</span>
+        </p>
+      </div>
+    </div>
+    <script>
+      // Use requestAnimationFrame for smooth playback
+      var frameNumber = 0, // start video at frame 0
+        // lower numbers = faster playback
+        playbackConst = 500,
+        // get page height from video duration
+        setHeight = document.getElementById("set-height"),
+        // select video element
+        vid = document.getElementById("vid");
+
+      function scrollPlay() {
+        // 设置当前视频播放位置 = 页面滚动距离 / playbackConst 常量 // 多少 s
+        // 常量值越小，单位滚动距离，播放的视频时长越长。有可能滚动一小段视频就结束了。
+        // 因此，这个 playbackConst 值需要可能视频时长、页面滚动高度来设置合适的值
+        var frameNumber = window.pageYOffset / playbackConst;
+        vid.currentTime = frameNumber;
+        console.log(vid.currentTime);
+        window.requestAnimationFrame(scrollPlay);
+      }
+      window.requestAnimationFrame(scrollPlay);
+      vid.addEventListener("timeupdate", (e) => {
+        // 0 - 2s 充电盒关闭，隐藏底部文案
+        // 2 - 3s 充电盒旋转到侧面，显示充电盒侧面文案
+        // 3 - 4s 充电盒旋转到底部，隐藏侧面文案
+        // 4 - 4.5s 显示底部文案
+        // 4.5. - 5s 充电盒位置回正，显示底部文案
+        console.log(e.target.currentTime);
+        let t = e.target.currentTime;
+
+        // step-1
+        if (t < 0.2) {
+          document.querySelector(".step-1").classList.add("active");
+        } else {
+          document.querySelector(".step-1").classList.remove("active");
+        }
+
+        // step-2
+        if (t > 2 && t < 3.2) {
+          document.querySelector(".step-2").classList.add("active");
+          // 精确控制宽度显示
+          // 1s 间隔, 宽度 0 => 429；1s = 429、(t - 2)s = (t - 2) * 429
+          //          top  50 => 0; 1s = 0、 (t - 2)s =
+          // document.querySelector(".step-2 .line").style.clipPath = `inset(0 0 0 ${(3 - t) * 100}%)`
+        } else {
+          document.querySelector(".step-2").classList.remove("active");
+        }
+        
+        // step-3 
+        if (t > 4 && t < 4.8) {
+          document.querySelector(".step-3").classList.add("active");
+        } else {
+          document.querySelector(".step-3").classList.remove("active");
+        }
+
+        // step-4 
+        if (t > 4.8) {
+          document.querySelector(".step-4").classList.add("active");
+        } else {
+          document.querySelector(".step-4").classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>

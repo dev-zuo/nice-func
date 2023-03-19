@@ -1,0 +1,115 @@
+body {
+    height: 10000px;
+    background-color: #000;
+    p {
+        line-height: 1.3334033333;
+    }
+}
+.video-wrap {
+    position: sticky;
+    top: 0;
+    width: 980px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+    color: #6e6e73;
+    & > div {
+        transition: all 1s linear;
+    }
+    span.white {
+        color: #fff;
+    }
+    span.green {
+        color: #00ff41;
+    }
+    .step-1 {
+        width: 410px;
+        margin: 0 auto;        
+        text-align: center;
+        opacity: 0;
+        &.active {
+            opacity: 1;
+        }
+    }
+    .step-2 {
+        position: absolute;
+        top: 354px;
+        left: 495px;
+        z-index: 2;
+        opacity: 0;
+        .line {
+            display: block;
+            height: 1px;
+            width: 429px;
+            clip-path: inset(0 0 0 100%); // 隐藏
+            background-color: #6e6e73;
+            transition: all 1s linear;
+        }
+        p {
+            position: relative;
+            left: 100px;
+            top: 50px;
+            width: 325px;
+            text-align: left;
+            transition: all 1s linear;
+        }
+        &.active {
+            opacity: 1;
+            .line {
+                clip-path: inset(0 0 0 0); // 全显示
+            }
+            p {
+                top: 0;
+            }
+        }
+    }
+    .step-3 {
+        position: absolute;
+        top: 480px;
+        left: 627px;
+        z-index: 2;
+        opacity: 0;
+        .line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            height: 1px;
+            width: 300px;
+            clip-path: inset(0 0 0 100%); // 隐藏
+            background-color: #6e6e73;
+            transform: rotate(90deg) translateX(-141px);
+            transform-origin: left;
+            transition: all 0.1s linear;
+        }
+        p {
+            position: relative;
+            top: 50px;
+            left: 30px;
+            width: 323px;
+            text-align: left;
+        }
+        &.active {
+            opacity: 1;
+            .line {
+                clip-path: inset(0 0 0 0); // 全显示
+            }
+            p {
+                top: 0;
+            }
+        }
+    }
+    .step-4 {
+        position: relative;
+        top: -70px;
+        width: 390px;
+        margin: 0 auto;
+        opacity: 0;
+        p {
+            text-align: center;
+        }
+        &.active {
+            opacity: 1;
+        }
+    }
+}
