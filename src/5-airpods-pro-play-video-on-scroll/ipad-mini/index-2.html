@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #set-height {
+        display: block;
+        height: 10000px;
+      }
+      #vid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      p font-family helvetica {
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Play Video on Scroll! https://codepen.io/marduklien/pen/MdvdEG -->
+    <!-- ../视频录制/assets/large_b.webm
+    ./assets/ipad-mini-keyint-1.mp4 -->
+    <div id="set-height"></div>
+    <p id="time"></p>
+    <video
+      id="vid"
+      src="./assets/ipad-mini-keyint-1.mp4"
+      muted
+    ></video>
+    <script>
+      // Use requestAnimationFrame for smooth playback
+      var frameNumber = 0, // start video at frame 0
+        // lower numbers = faster playback
+        playbackConst = 500,
+        // get page height from video duration
+        setHeight = document.getElementById("set-height"),
+        // select video element
+        vid = document.getElementById("vid");
+
+      function scrollPlay() {
+        // 设置当前视频播放位置 = 页面滚动距离 / playbackConst 常量 // 多少 s
+        // 常量值越小，单位滚动距离，播放的视频时长越长。有可能滚动一小段视频就结束了。
+        // 因此，这个 playbackConst 值需要可能视频时长、页面滚动高度来设置合适的值
+        var frameNumber = window.pageYOffset / playbackConst;
+        vid.currentTime = frameNumber;
+        console.log(vid.currentTime);
+        window.requestAnimationFrame(scrollPlay);
+      }
+      window.requestAnimationFrame(scrollPlay);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ScrollyVideo HTML Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .scrolly-video-wrap {
+        display: flex;
+        justify-content: center;
+        height: 300vh;
+      }
+
+      #scrolly-video {
+        width: 1200px;
+        height: 882px;
+        top: 10px !important;
+        clip-path: inset(0 2px 2px 0); /* 去除 canvas 右/下 黑边 */
+        background: #f5f5f7;
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <video src="./assets/Honeycam-res.webm" autoplay muted id="v1"></video> -->
+    <div class="scrolly-video-wrap">
+      <div id="scrolly-video"></div>
+    </div>
+    <script src="./lib/scrollyVideo.min.js"></script>
+    <script type="text/javascript">
+      // https://github.com/dkaoster/scrolly-video
+      new ScrollyVideo({
+        scrollyVideoContainer: "scrolly-video",
+        src: "../视频录制/assets/large_b.webm",
+        // src: "./assets/ipad-mini-keyint-1.mp4",
+        // src: "./assets/ipad-mini.webm",
+        full: false,
+      });
+      // 1、使用下载下来的 webm 视频，不流畅、laggy（迟缓）
+      //    不停的找网上 demo，找了 3 种方式
+      //    ① requestAnimationFrame mac pro垃圾桶 https://codepen.io/marduklien/pen/MdvdEG
+      //    ② 监听页面滚动 pause() 视频 https://codepen.io/ksiddiqi/pen/YzRmBb
+      //    ③ 使用 scrolly-video 开源库 https://github.com/dkaoster/scrolly-video
+      //    奇怪的是使用别人 demo 中的视频滚动时切换流畅，但换到 ipad mini 这个 webm 视频就不行
+      //    考虑到是视频的问题
+      // 2、使用 FFmepg 设置关键帧间隔为 1，三种方式，都可以保持流畅。但 webm 转 mp4 透明背景会被转换为黑色无法去除
+      //    参考：Why it's laggy when is scroll up https://github.com/dkaoster/scrolly-video/issues/36
+      //    webm 支持透明背景，mp4 不支持透明背景，因此转换后透明背景被转黑色
+      // 3、使用 Honeycam 将黑色背景替换为白色背景，有黑色噪点，非透明
+      // 4、使用 Captura 录制白色背景视频，滚动切换帧流畅，但比官网模糊、非透明(设置 #f5f5f7 背景视频大部分还是白色)
+      // 5、回到 1，把 ipad mini 官网 webm 视频拿出来，看怎么将 webm 设置关键帧距离为 1，且保持 webm 透明背景？
+      //    暂时无解
+
+      // if somebody needs a command to convert I frame only mp4(video with keyframe distance), please refer to the command below.
+      // ffmpeg -i original.mp4 -c:v libx264 -x264-params keyint=1 original_I.mp4
+      // keyint是两个keyframe之间的最大距离，minkeyint是两个 keyframe之间的最小距离。
+      // https://www.jianshu.com/p/1a6b2bff5876
+      // 什么是视频关键帧距？
+      // 关键帧距离值会告诉编码器有关重新评估视频图像，以及将完整帧或关键帧录制到文件中的频率。
+      // 如果画面包含大量场景变换或迅速移动的动作或动画，那么减少关键帧距离将会提高图像的整体品质。
+      //  一个较小的关键帧距离对应于一个较大的输出文件。
+
+      // select video element
+      // var vid = document.getElementById('vid');
+      // window.onscroll = function(){
+      //     console.log(vid.duration ); //获取视频时长
+      //     console.log(vid.currentTime); //获取视频当前播放时间
+      //     vid.pause();
+      // };
+    </script>
+  </body>
+</html>

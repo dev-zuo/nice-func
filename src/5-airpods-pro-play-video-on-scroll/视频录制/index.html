@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        video {
+            width: 1200px;
+            margin: 10px
+        }
+        #v2 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <video src="../assets/large_a.webm" autoplay muted id="v1"></video>
+    <video src="../assets/large_b.webm" autoplay muted id="v2"></video>
+    <script>
+        let v1El = document.querySelector('#v1');
+        let v2El = document.querySelector('#v2');
+        console.log(v1El, v2El);
+        v1El.addEventListener('ended', () => {
+            console.log('ended1')
+            v1El.style.display = 'none';
+            v2El.style.display = 'block';
+            v2El.play();
+        })
+        v2El.addEventListener('ended', () => {
+            console.log('ended2')
+            v2El.style.display = 'none';
+            v1El.style.display = 'block';
+            v1El.play();
+        })
+    </script>
+</body>
+</html>

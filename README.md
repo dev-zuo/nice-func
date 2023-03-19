@@ -2,10 +2,102 @@
 
 尝试实现一些让人耳目一新、感觉很 nice 的网页内容、动效
 
+* [5. 苹果官网 AirPods 充电盒动效实现，根据滚动位置打开、收起、旋转等](#苹果官网 AirPods 充电盒动效实现，根据滚动位置打开、收起、旋转等)
 * [4. iPhone14 新配色官网首屏动效实现](#iPhone14-新配色官网首屏动效实现)
 * [3. OPPO Find X3 火星版官网：使用 GSAP 和 clip-path 实现 5 种场景切换动效](#find-x3-火星版官网动效实现)
 * [2. MacBook Pro 新品发布官网动画效果实现(2023年01月)](#macbook-pro-新品发布官网动画效果实现2023年01月)
 * [1. vivo iQOO Neo7 向下滚动切换手机颜色效果](#vivo-iqoo-neo7-向下滚动切换手机颜色效果)
+
+## 5. 苹果官网 AirPods 充电盒动效实现，根据滚动位置打开、收起、旋转等
+
+核心：Play video on scroll + 根据 video 播放位置，设置不同文案显示
+
+来源：[AirPods Pro (第二代) - Apple (中国大陆)](https://www.apple.com.cn/airpods-pro/)
+
+![5-1-AirPods.gif](./src/images/5-1-AirPods.gif)
+
+最开始是在研究 ipad mini 根据页面滚动旋转操作入坑。了解到是一个视频。根据滚动播放视频。
+
+![5-2-ipad-mini.gif](./src/images/5-2-ipad-mini.gif)
+
+后面发现 AirPods Pro，之前老款的 Mac Pro 垃圾桶版也有类似的动画，先解决第一个问题，根据滚动播放视频
+
+* 1、使用下载下来的 ipad mini webm 视频，不流畅、laggy（迟缓）
+  * 最终，找到了 3 种实现方式
+    * ① requestAnimationFrame mac pro垃圾桶 <https://codepen.io/marduklien/pen/MdvdEG>
+    * ② 监听页面滚动 pause() 视频 <https://codepen.io/ksiddiqi/pen/YzRmBb>
+    * ③ 使用 scrolly-video 开源库 <https://github.com/dkaoster/scrolly-video>
+  * 奇怪的是使用别人 demo 中的视频滚动时切换流畅，但换到 ipad mini 这个 webm 视频就不行
+  * 考虑是视频的问题
+* 2、使用 FFmepg 设置关键帧间隔为 1，三种方式，都可以保持流畅。但 webm 转 mp4 透明背景会被转换为黑色无法去除
+
+  ```js
+  // if somebody needs a command to convert I frame only mp4(video with keyframe distance), please refer to the command below.
+
+  ffmpeg -i original.mp4 -c:v libx264 -x264-params keyint=1 original_I.mp4
+
+  // keyint是两个keyframe之间的最大距离，minkeyint是两个 keyframe之间的最小距离。
+
+  // 什么是视频关键帧距？ // https://www.jianshu.com/p/1a6b2bff5876
+  // 关键帧距离值会告诉编码器有关重新评估视频图像，以及将完整帧或关键帧录制到文件中的频率。
+  // 如果画面包含大量场景变换或迅速移动的动作或动画，那么减少关键帧距离将会提高图像的整体品质。
+  // 一个较小的关键帧距离对应于一个较大的输出文件。
+  ```
+
+  * 参考：Why it's laggy when is scroll up <https://github.com/dkaoster/scrolly-video/issues/36>
+  * webm 支持透明背景，mp4 不支持透明背景，因此转换后透明背景被转黑色
+* 3、使用 Honeycam 将黑色背景替换为白色背景，有黑色噪点，非透明
+* 4、使用 Captura 录制白色背景视频，滚动切换帧流畅，但比官网模糊、非透明(设置 #f5f5f7 背景视频大部分还是白色)
+* 5、回到 1，把 ipad mini 官网 webm 视频拿出来，看怎么将 webm 设置关键帧距离为 1，且保持 webm 透明背景？
+  * 暂时无解
+
+```js
+// 视频播放时长、视频当前播放位置
+// select video element
+var vid = document.getElementById('vid');
+window.onscroll = function(){
+    console.log(vid.duration ); //获取视频时长
+    console.log(vid.currentTime); //获取视频当前播放时间
+};
+```
+
+经过测试，发现 AirPods 下面的视频比较流程，于是选中了 AirPods 充电盒动效作为主题
+
+上面有三种方式实现在滚动时切换视频，由于我们需要在滚动的时候，根据视频播放位置显示不同的文案，这里监听视频播放位置，再做处理
+
+```js
+vid.addEventListener("timeupdate", (e) => {
+  // 0 - 2s 充电盒关闭，隐藏底部文案
+  // 2 - 3s 充电盒旋转到侧面，显示充电盒侧面文案
+  // 3 - 4s 充电盒旋转到底部，隐藏侧面文案
+  // 4 - 4.5s 显示底部文案
+  // 4.5. - 5s 充电盒位置回正，显示底部文案
+  console.log(e.target.currentTime);
+  let t = e.target.currentTime;
+
+  // step-1
+  if (t < 0.2) {
+    document.querySelector(".step-1").classList.add("active");
+  } else {
+    document.querySelector(".step-1").classList.remove("active");
+  }
+
+  // step-2
+  if (t > 2 && t < 3.2) {
+    document.querySelector(".step-2").classList.add("active");
+    // 精确控制宽度显示
+    // 1s 间隔, 宽度 0 => 429；1s = 429、(t - 2)s = (t - 2) * 429
+    //          top  50 => 0; 1s = 0、 (t - 2)s =
+    // document.querySelector(".step-2 .line").style.clipPath = `inset(0 0 0 ${(3 - t) * 100}%)`
+  } else {
+    document.querySelector(".step-2").classList.remove("active");
+  }
+})
+```
+
+参考：
+
+* [AirPods的正确读法](https://www.bilibili.com/video/BV1TV41167H9)
 
 ## 4. iPhone14 新配色官网首屏动效实现
 

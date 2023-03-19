@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #set-height {
+        display: block;
+        height: 10500px;
+      }
+      #v0 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: auto;
+      }
+      p font-family helvetica {
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Scrolling controls for HTML5 video https://codepen.io/ksiddiqi/pen/YzRmBb -->
+    <!-- src: "../视频录制/assets/large_b.webm",
+    // src: "./assets/ipad-mini-black.mp4",
+    // src: "./assets/ipad-mini.webm", -->
+    <div id="set-height"></div>
+    <p id="time"></p>
+    <video
+      id="v0"
+      muted
+      src="./assets/ipad-mini-keyint-1.mp4"
+    ></video>
+    <script>
+      // select video element
+      var vid = document.getElementById("v0");
+      // pause video on load
+      vid.pause();
+      // pause video on document scroll (stops autoplay once scroll started)
+      window.onscroll = function () {
+        vid.pause();
+      };
+      // refresh video frames on interval for smoother playback
+      setInterval(function () {
+        vid.currentTime = window.pageYOffset / 400;
+        console.log(vid.currentTime, window.pageYOffset)
+      }, 40);
+    </script>
+  </body>
+</html>
