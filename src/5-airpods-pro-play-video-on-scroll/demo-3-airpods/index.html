@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100vh;">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll to control video position</title>
     <style>
-      html {
-        height: 100vh;
-      }
-
-      body {
-        height: 500vh;
-        background: #000;
-      }
-
       canvas {
         position: fixed;
         left: 50%;
@@ -25,19 +16,24 @@
       }
     </style>
   </head>
-  <body>
+  <!-- Scroll to control video position https://greensock.com/forums/topic/29900-scroll-to-control-video-position/ -->
+  <body style="height: 500vh;background: #000;">
     <canvas id="hero-lightpass" />
-    <!-- Scroll to control video position https://greensock.com/forums/topic/29900-scroll-to-control-video-position/ -->
     <script>
       const html = document.documentElement;
       const canvas = document.getElementById("hero-lightpass");
       const context = canvas.getContext("2d");
-
       const frameCount = 148;
-      const currentFrame = (index) =>
-        `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index
+      const currentFrame = (index) => {
+        console.log(index, index.toString(), index.toString().padStart(4, "0"));
+        // 1 '1' '0001'
+        // 13 '13' '0013'
+        // 148 '148' '0148'
+        return  `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index
           .toString()
           .padStart(4, "0")}.jpg`;
+      }
+       
 
       const preloadImages = () => {
         for (let i = 1; i < frameCount; i++) {
@@ -61,8 +57,9 @@
 
       window.addEventListener("scroll", () => {
         const scrollTop = html.scrollTop;
-        const maxScrollTop = html.scrollHeight - window.innerHeight;
-        const scrollFraction = scrollTop / maxScrollTop;
+        const maxScrollTop = html.scrollHeight - window.innerHeight; // 总共可以滚动的距离
+        const scrollFraction = scrollTop / maxScrollTop; // 当前滚动距离 / 总滚动距离
+        // 当前图片帧 index = 滚动比例 * 总图片帧数
         const frameIndex = Math.min(
           frameCount - 1,
           Math.ceil(scrollFraction * frameCount)

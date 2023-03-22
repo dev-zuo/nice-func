@@ -5,48 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Play Video on Scroll</title>
-    <style>
-      #set-height {
-        display: block;
-        height: 10000px;
-      }
-      #vid {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-      p font-family helvetica {
-        font-size: 24px;
-      }
-    </style>
   </head>
-  <body>
-    <!-- Play Video on Scroll! https://codepen.io/marduklien/pen/MdvdEG -->
-    <div id="set-height"></div>
-    <p id="time"></p>
+  <!-- Play Video on Scroll! https://codepen.io/marduklien/pen/MdvdEG -->
+  <body style="height: 10000px">
     <video
-      id="vid"
+      id="videId"
       src="https://www.apple.com/media/us/mac-pro/2013/16C1b6b5-1d91-4fef-891e-ff2fc1c1bb58/videos/macpro_main_desktop.mp4"
+      style="position: fixed; top: 0; left: 0; width: 100%"
       muted
     ></video>
     <script>
+      let playbackConst = 200;
+      let videoEl = document.getElementById("videId");
       // Use requestAnimationFrame for smooth playback
-      var frameNumber = 0, // start video at frame 0
-        // lower numbers = faster playback
-        playbackConst = 200,
-        // get page height from video duration
-        setHeight = document.getElementById("set-height"),
-        // select video element
-        vid = document.getElementById("vid");
-
       function scrollPlay() {
         // 设置当前视频播放位置 = 页面滚动距离 / playbackConst 常量 // 多少 s
         // 常量值越小，单位滚动距离，播放的视频时长越长。有可能滚动一小段视频就结束了。
         // 因此，这个 playbackConst 值需要可能视频时长、页面滚动高度来设置合适的值
         var frameNumber = window.pageYOffset / playbackConst;
-        vid.currentTime = frameNumber;
-        console.log(vid.currentTime);
+        videoEl.currentTime = frameNumber;
+        // console.log(videoEl.currentTime);
         window.requestAnimationFrame(scrollPlay);
       }
       window.requestAnimationFrame(scrollPlay);
