@@ -46,7 +46,7 @@
     <script type="importmap">
       {
         "imports": {
-          "three": "./three.module.min.js",
+          "three": "./three.module.min.js"
         }
       }
     </script>
@@ -54,7 +54,7 @@
     <script type="module">
       import * as THREE from "./three.module.min.js";
 
-    //   import Stats from "./stats.module.js";
+      //   import Stats from "./stats.module.js";
 
       const SEPARATION = 100,
         AMOUNTX = 50,
@@ -85,7 +85,7 @@
           1,
           10000
         );
-        console.log('camera', camera)
+        console.log("camera", camera);
         camera.position.z = 1000;
         scene = new THREE.Scene();
 
@@ -139,7 +139,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
-        // fps 去除 
+        // fps 去除
         // stats = new Stats();
         // container.appendChild(stats.dom);
 
@@ -169,7 +169,6 @@
         // mouseX = event.clientX - windowHalfX;
         // mouseY = event.clientY - windowHalfY;
         // console.log('==>', mouseX, mouseY)
-       
       }
 
       //
@@ -183,7 +182,7 @@
 
       function render() {
         mouseX = -90;
-        mouseY = - 193;
+        mouseY = -193;
         camera.position.x += (mouseX - camera.position.x) * 0.05;
         camera.position.y += (-mouseY - camera.position.y) * 0.05;
         camera.lookAt(scene.position);
