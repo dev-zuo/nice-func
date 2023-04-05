@@ -12,7 +12,8 @@
     }
 
     .main {
-      margin: 300px;
+      /* margin: 300px; */
+      margin: 2%;
     }
 
     .part1.square {
@@ -54,7 +55,8 @@
       /* height: 120px; */
       transition: all 2s;
       /* position: absolute; */
-      width: 80px; /* translate x,y 偏移后，flex 布局不改变的关键点！！！ */
+      width: 80px;
+      /* translate x,y 偏移后，flex 布局不改变的关键点！！！ */
       height: 130px;
     }
 
@@ -78,7 +80,7 @@
 
     /* 初始值 - 全部都缩放到中央 */
     .part2 .s1 {
-      transform: translate(120px, 50px) scale(0.3);
+      transform: translate(110px, 70px) scale(0.3);
     }
 
     /* 展开后 */
@@ -88,7 +90,7 @@
 
     /* 初始值 - 全部都缩放到中央 */
     .part2 .s2 {
-      transform: translate(0, 50px) scale(0.3);
+      transform: translate(0, 70px) scale(0.3);
     }
 
     /* 展开后 */
@@ -98,7 +100,7 @@
 
     /* 初始值 - 全部都缩放到中央 */
     .part2 .s3 {
-      transform: translate(-120px, 50px) scale(0.3);
+      transform: translate(-110px, 70px) scale(0.3);
     }
 
     /* 展开后 */
@@ -108,7 +110,7 @@
 
     /* 初始值 - 全部都缩放到中央 */
     .part2 .s4 {
-      transform: translate(120px, -50px) scale(0.3);
+      transform: translate(110px, -60px) scale(0.3);
     }
 
     /* 展开后 */
@@ -118,7 +120,7 @@
 
     /* 初始值 - 全部都缩放到中央 */
     .part2 .s5 {
-      transform: translate(0, -50px) scale(0.3);
+      transform: translate(0, -60px) scale(0.3);
     }
 
     /* 展开后 */
@@ -128,16 +130,138 @@
 
     /* 初始值 - 全部都缩放到中央 */
     .part2 .s6 {
-      transform: translate(-120px, -50px) scale(0.3);
+      transform: translate(-110px, -60px) scale(0.3);
     }
 
 
     .part2 .img-box-top {
-      opacity: 0.3;
+      opacity: 0.01;
       /* 宽高变化，会影响 flex 布局，每行的元素个数 */
       /* width: 1px;
       height: 1px; */
       /* transform: scale(0.1); */
+    }
+
+    .img-box.s2,
+    .img-box.s5 {
+      transition: all 3s;
+    }
+
+    .part4 {
+      display: flex;
+    }
+
+    .part4 .sec {
+      position: relative;
+      height: 180px;
+      width: 33.3%;
+      color: white;
+      transition: all .5s;
+      border-right: 1px solid #292b2f;
+    }
+
+    .part4 .sec:last-child {
+      border-right: none;
+    }
+
+    .part4 .sec .sec-normal {
+      background-color: rgba(23, 26, 29, .9);
+      background-position: bottom 25% left 20%;
+      background-repeat: no-repeat;
+      background-size: auto 200%;
+      height: 180px;
+      padding-left: 32px;
+      padding-top: 48px;
+      transition: width .5s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .part4 .sec .sec-normal-active {
+      clip-path: inset(0 0 0 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-image: linear-gradient(40deg, rgba(155, 235, 255, .2), rgba(220, 251, 255, 0) 16%, rgba(220, 251, 255, 0) 0), linear-gradient(69deg, #004fff, rgba(0, 79, 255, 0) 78%, rgba(0, 79, 255, 0) 0), linear-gradient(8deg, #004fff, rgba(0, 79, 255, 0) 80%), radial-gradient(circle at 170% -17%, rgba(112, 208, 255, .4) 0, rgba(220, 251, 255, 0) 122%), linear-gradient(239deg, #3296fa, #007fff);
+    }
+
+    .part4 .sec.active,
+    .part4 .sec:hover {
+      flex: 0 0 340px;
+    }
+
+    .part4 .sec.active .sec-normal-active,
+    .part4 .sec:hover .sec-normal-active {
+      clip-path: inset(0 0 0 0);
+      display: block;
+      height: 180px;
+      padding-bottom: 34px;
+      padding-left: 20px;
+      padding-top: 32px;
+      box-sizing: border-box;
+      overflow: hidden;
+      transition: all 0.5s;
+    }
+
+    .sec.active .sec-normal-active img,
+    .sec:hover .sec-normal-active img {
+      top: 0;
+      transition: all 1s;
+    }
+
+    .sec-normal-active img {
+      position: absolute;
+      top: 100px;
+      right: -79px;
+    }
+
+    .part4 .sec .title {
+      font-size: 16px;
+    }
+
+    .part4 .sec .desc {
+      margin-top: 12px;
+      font-size: 12px;
+      color: hsla(0, 0%, 100%, .6);
+    }
+
+    .part4 .sec .btn {
+      color: rgb(0, 127, 255);
+      width: 60px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      background-color: #fff;
+    }
+
+    .gap-line {
+      background-image: linear-gradient(69deg, #004fff, rgba(0, 79, 255, 0) 51%), radial-gradient(circle at 170% -17%, rgba(112, 208, 255, .4) 0, rgba(220, 251, 255, 0) 122%), linear-gradient(239deg, #3296fa, #007fff);
+      height: 1px;
+      margin: 6px 0;
+      opacity: 1;
+      width: 14px;
+    }
+
+    .sa>div {
+      border-radius: 16px 0 0 16px;
+    }
+
+    .sb>div {
+      border-radius: 0 16px 16px 0;
+    }
+
+    .sa .sec-normal {
+      background-image: url(./images/it1-bg.png)
+    }
+
+    .sb .sec-normal {
+      background-image: url(./images/it2-bg.png)
     }
   </style>
 </head>
@@ -180,6 +304,34 @@
         <div class="img-box-text">模块6</div>
       </div>
     </div>
+    <div class="part4">
+      <div class="sec sa">
+        <div class="sec-normal">
+          <div class="title">云考勤机</div>
+          <div class="gap-line"></div>
+          <div class="desc">M2</div>
+        </div>
+        <div class="sec-normal-active">
+          <div class="title">云考勤机M2</div>
+          <div class="desc">这不仅仅是一台考勤机</div>
+          <div class="btn">购买</div>
+          <img src="./images/it1.png" height="180">
+        </div>
+      </div>
+      <div class="sec sb">
+        <div class="sec-normal">
+          <div class="title">智能门禁机</div>
+          <div class="gap-line"></div>
+          <div class="desc">D3</div>
+        </div>
+        <div class="sec-normal-active">
+          <div class="title">智能门禁机D3</div>
+          <div class="desc">有温度的理想办公，即刻开启</div>
+          <div class="btn">购买</div>
+          <img src="./images/it2.png" height="180">
+        </div>
+      </div>
+    </div>
   </div>
   <script>
     // 1、方块放大/缩小并移动 √
@@ -196,6 +348,26 @@
 
     btn2El.addEventListener('click', () => {
       part2El.classList.toggle('active')
+    })
+
+    // 4.
+    let prevActiveNode = ''
+    document.querySelector('.part4').addEventListener('click', (e) => {
+      console.log(e.target)
+      // 移除以前的 active
+      prevActiveNode && prevActiveNode.classList.remove('active')
+      // 判断当前 active
+      let activeNode = ''
+      if (e.target.classList.contains('sec')) {
+        activeNode = e.target
+      } else if (e.target.parentNode.classList.contains('sec')) {
+        activeNode = e.target.parentNode
+      } else {
+        activeNode = e.target.parentNode.parentNode
+      }
+      // 添加 active
+      activeNode.classList.add('active')
+      prevActiveNode = activeNode
     })
   </script>
 </body>
