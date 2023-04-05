@@ -9,6 +9,7 @@
   <style>
     body {
       margin: 0;
+      height: 1000px;
     }
 
     .main {
@@ -28,7 +29,7 @@
 
     .part1.square.active {
       opacity: 1;
-      transform: translate(-200px, -200px) scale(1.5);
+      transform: translate(200px, 200px) scale(1.5);
     }
 
     .part2 {
@@ -53,11 +54,16 @@
 
     .part2 .img-box {
       /* height: 120px; */
-      transition: all 2s;
+      transition: all 2s ease;
       /* position: absolute; */
       width: 80px;
       /* translate x,y 偏移后，flex 布局不改变的关键点！！！ */
       height: 130px;
+      opacity: 0.01;
+    }
+
+    .part2.active .img-box {
+      opacity: 1;
     }
 
     .part2.active .img-box-top {
@@ -69,8 +75,8 @@
     }
 
     .part2.active .img-box-text {
-      opacity: 1;
-      font-size: 16px;
+      /* opacity: 1;
+      font-size: 16px; */
     }
 
     /* 展开后 */
@@ -135,7 +141,7 @@
 
 
     .part2 .img-box-top {
-      opacity: 0.01;
+      /* opacity: 0.01; */
       /* 宽高变化，会影响 flex 布局，每行的元素个数 */
       /* width: 1px;
       height: 1px; */
@@ -144,11 +150,12 @@
 
     .img-box.s2,
     .img-box.s5 {
-      transition: all 3s;
+      transition: all 3s ease;
     }
 
     .part4 {
       display: flex;
+      width: 750px;
     }
 
     .part4 .sec {
@@ -271,12 +278,12 @@
   <!-- 缩放效果：font-size 使用 vw 宽度百分比；div 宽高使用 em，实现自适应 -->
   <button id="btn">1、方块放大/缩小并移动 √</button>
   <button id="btn-expand">2、图片逐渐展开</button>
-  <button id="btn-three-bg-up">3、thress.js 背景逐渐上升</button>
+  <button id="btn-three-bg-up" onclick="location.href = './three-waves/threejs-waves.html'">3、thress.js 背景逐渐上升</button>
   <button id="btn-img-text-sec">4、图文结合模块 </button>
   <!-- 蓝色背景是 position: absolute 覆盖上去的。从左到右动画使用 transition： flex: 0 0 340px； transition width-->
   <!-- 背景：background-image: linear-gradient(40deg,rgba(155,235,255,.2),rgba(220,251,255,0) 16%,rgba(220,251,255,0) 0),linear-gradient(69deg,#004fff,rgba(0,79,255,0) 78%,rgba(0,79,255,0) 0),linear-gradient(8deg,#004fff,rgba(0,79,255,0) 80%),radial-gradient(circle at 170% -17%,rgba(112,208,255,.4) 0,rgba(220,251,255,0) 122%),linear-gradient(239deg,#3296fa,#007fff); -->
   <div class="main">
-    <!-- <div class="part1 square"></div> -->
+    <div class="part1 square"></div>
     <!-- 2. 图标全部重叠在一起，再慢慢展开 -->
     <div class="part2">
       <div class="img-box s1">
@@ -351,24 +358,24 @@
     })
 
     // 4.
-    let prevActiveNode = ''
-    document.querySelector('.part4').addEventListener('click', (e) => {
-      console.log(e.target)
-      // 移除以前的 active
-      prevActiveNode && prevActiveNode.classList.remove('active')
-      // 判断当前 active
-      let activeNode = ''
-      if (e.target.classList.contains('sec')) {
-        activeNode = e.target
-      } else if (e.target.parentNode.classList.contains('sec')) {
-        activeNode = e.target.parentNode
-      } else {
-        activeNode = e.target.parentNode.parentNode
-      }
-      // 添加 active
-      activeNode.classList.add('active')
-      prevActiveNode = activeNode
-    })
+    // let prevActiveNode = ''
+    // document.querySelector('.part4').addEventListener('click', (e) => {
+    //   console.log(e.target)
+    //   // 移除以前的 active
+    //   prevActiveNode && prevActiveNode.classList.remove('active')
+    //   // 判断当前 active
+    //   let activeNode = ''
+    //   if (e.target.classList.contains('sec')) {
+    //     activeNode = e.target
+    //   } else if (e.target.parentNode.classList.contains('sec')) {
+    //     activeNode = e.target.parentNode
+    //   } else {
+    //     activeNode = e.target.parentNode.parentNode
+    //   }
+    //   // 添加 active
+    //   activeNode.classList.add('active')
+    //   prevActiveNode = activeNode
+    // })
   </script>
 </body>
 
