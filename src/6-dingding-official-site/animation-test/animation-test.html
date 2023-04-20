@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>钉钉官网动效</title>
+    <link rel="stylesheet/less" type="text/css" href="./styles.less" />
+    <script src="../../lib/less.min.js"></script>
+    <script src="../../lib/vue.global.js"></script>
+    <script src="../../lib/gsap.min.js"></script>
+    <script src="../../lib/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div class="height-gap"></div> -->
+      <div class="main">
+        <div class="dd-icon"><img src="../images/dingd-icon.svg" /></div>
+        <div class="dd-text"><img src="../images/dingd-text.svg" /></div>
+        <div
+          class="square"
+          v-for="(item,index) in squareList"
+          :class="`square-${index}`"
+          :key="item.no"
+        ></div>
+      </div>
+    </div>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            squareNum: 21,
+            squareList: [],
+          };
+        },
+        mounted() {
+          this.squareList = new Array(this.squareNum).fill(1);
+          gsap.registerPlugin(ScrollTrigger);
+          const t1 = gsap.timeline();
+          // t1.fromTo(".dd-icon", { x: 400,duration: 1 });
+          // // 在1秒开始插入动画（绝对值）
+          // t1.to(".green", { x: 400, duration: 1 }, 1);
+          // // 在上个动画的开始插入动画
+          // t1.to(".purple", { x: 400, duration: 1 }, "<");
+          // // 在最后一个动画结束后一秒插入动画
+          // t1.to(".orange", { x: 400, duration: 1 }, "+=1");
+
+          // step1 - 向上移动，放大到 1 倍，透明度 1
+          t1.to(".dd-icon", { y: -130, scale: 1, opacity: 1, duration: 1 });
+          t1.to(".dd-text", { y: -155,  scale: 1,opacity: 1, duration: 1 }, "<");
+
+          // step2 - 继续上移，放大，其中 文案透明度 1，图标透明度 0.35
+          t1.to(".dd-icon", { y: -400, scale: 1.42, opacity: 0.35, duration: 1 });
+          t1.to(".dd-text", { y: -320,  scale: 1.56,opacity: 1, duration: 1 }, "<");
+
+          t1.to(".dd-icon", { y: -800, scale: 2, opacity: 0.1, duration: 1 });
+          t1.to(".dd-text", { y: -435,  scale: 1.96,opacity: 0.6, duration: 1 }, "<");
+
+        //   t1.to(".dd-text", { y: -800, scale: 3, opacity: 0.1, duration: 1 });
+
+          const t2 = gsap.timeline();
+          this.$nextTick(() => {
+            // step1 - 方块上移，两边初步散开
+            // 左侧
+            t2.to(".square-0", { x: -10, y: -100, scale: 1, duration: 1 });
+            t2.to(".square-1", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-2", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-3", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-4", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-5", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-6", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-7", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-8", { x: -10, y: -100, scale: 1, duration: 1 }, "<");
+            // 9 - 13 山下方块
+            t2.to(".square-9", { x: 0, y: -50, scale: 1, duration: 1 }, "<");
+            t2.to(".square-10", { x: 0, y: -50, scale: 1, duration: 1 }, "<");
+            t2.to(".square-11", { x: 0, y: -50, scale: 1, duration: 1 }, "<");
+            t2.to(".square-12", { x: 0, y: -50, scale: 1, duration: 1 }, "<");
+            t2.to(".square-13", { x: 0, y: -50, scale: 1, duration: 1 }, "<");
+            // 右侧
+            t2.to(".square-14", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-15", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-16", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-17", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-18", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-19", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+            t2.to(".square-20", { x: 10, y: -100, scale: 1, duration: 1 }, "<");
+
+            // step2 不上移，加快两边散开、放大
+            // 左侧
+            t2.to(".square-0", { x: -160, y: -165, scale: 1.2, duration: 1 });
+            t2.to(".square-1", { x: -100, y: -180, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-2", { x: -155, y: -170, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-3", { x: -80, y: -150, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-4", { x: -50, y: -200, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-5", { x: -100, y: -50, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-6", { x: -160, y: -10, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-7", { x: -65, y: -60, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-8", { x: -100, y: -50, scale: 1.2, duration: 1 }, "<");
+            // 上下
+            t2.to(".square-9", { x: 0, y: -120, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-10", { x: 0, y: 120, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-11", { x: 0, y: 90, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-12", { x: 0, y: -150, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-13", { x: 10, y: -140, scale: 1.2, duration: 1 }, "<");
+            // 右侧
+            t2.to(".square-14", { x: 145, y: -150, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-15", { x: 90, y: -135, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-16", { x: 55, y: -90, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-17", { x: 75, y: -70, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-18", { x: 100, y: -20, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-19", { x: 155, y: -35, scale: 1.2, duration: 1 }, "<");
+            t2.to(".square-20", { x: 140, y: 100, scale: 1.2, duration: 1 }, "<");
+
+            // step3 
+            // 左侧
+            // t2.to(".square-0", { x: -160, y: -165, scale: 1.6, duration: 1 });
+            // t2.to(".square-1", { x: -100, y: -180, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-2", { x: -155, y: -170, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-3", { x: -140, y: -60, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-4", { x: -50, y: -200, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-5", { x: -100, y: -50, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-6", { x: -160, y: -10, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-7", { x: -65, y: -60, scale: 1.6, duration: 1 }, "<");
+            // t2.to(".square-8", { x: -100, y: -50, scale: 1.6, duration: 1 }, "<");
+          });
+        },
+        methods: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>

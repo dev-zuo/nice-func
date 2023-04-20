@@ -8,17 +8,20 @@
     <link rel="stylesheet/less" type="text/css" href="./styles.less" />
     <script src="../lib/less.min.js"></script>
     <script src="../lib/vue.global.js"></script>
+    <script src="../lib/gsap.min.js"></script>
+    <script src="../lib/ScrollTrigger.min.js"></script>
   </head>
   <body>
     <div id="app">
+      <div class="height-gap"></div>
       <div class="main">
-        <p style="color:white;font-size:12px;">{{squareList}}</p>
+        <div class="dd-icon"><img src="./images/dingd-icon.svg" /></div>
+        <div class="dd-text"><img src="./images/dingd-text.svg" /></div>
         <div
           class="square"
           v-for="(item,index) in squareList"
           :class="`square-${index}`"
           :key="item.no"
-          :style="getSquareStyle(item)"
         ></div>
       </div>
     </div>
@@ -27,39 +30,128 @@
       createApp({
         data() {
           return {
-            message: "Hello Vue!",
-            squareNum: 30,
+            squareNum: 21,
             squareList: [],
           };
         },
         mounted() {
-            this.squareList = new Array(30).fill(1)
-        //   this.squareList = new Array(30).fill(1).map((item, index) => {
-        //     let red = this.getRandomColor();
-        //     let green = this.getRandomColor();
-        //     let blue = this.getRandomColor();
-        //     return {
-        //       no: item + 1, // 1 - 30
-        //       color: `rgb(${red},${green},${blue})`,
-        //       width: Math.floor(25 + Math.random() * 55),
-        //       top: Math.floor(0 + Math.random() * 1000),
-        //       bottom: Math.floor(0 + Math.random() * 1000),
-        //     };
-        //   });
+          // this.squareList = new Array(this.squareNum).fill(1);
+          // window.addEventListener('scroll', (e) => {
+          //   let scrollTop = document.documentElement.scrollTop
+          //   const START_POS = 400;
+          //   const END_POS = 700;
+          //   // 400 - 700
+          //   // 1 阶段：图标 y/scale（100px/0.3 => 0/1）
+          //   console.log('scroll', scrollTop);
+          //   if (scrollTop >= START_POS && scrollTop <= END_POS) {
+          //     let y = 100
+          //     let scale = 0.3
+          //     let percent = (scrollTop - START_POS) / (END_POS - START_POS)
+          //     // pos 0 y 100, pos END_POS-START_POS y 0
+          //     y = 100 - (percent) * 100
+          //     scale = 0.3 + percent * (1 - 0.3)
+          //     document.querySelector('.dd-icon').style.transform =`translateY(${y}px) scale(${scale})`
+          //     document.querySelector('.dd-icon').style.opacity = scale
+          //     document.querySelector('.dd-text').style.transform =`scale(${scale})`
+          //     document.querySelector('.dd-text').style.opacity = scale
+          //   }
+          //   // 700 -
+          //   if (scrollTop >= END_POS) {
+          //     document.querySelector('.main').style.position = 'fixed'
+          //     document.querySelector('.main').style.top = '0'
+          //   }
+          // })
+          gsap.registerPlugin(ScrollTrigger);
+          // https://zhuanlan.zhihu.com/p/612240687
+          // gsap 某个场景同时执行两个元素的动画，使用 timeline
+          const t1 = gsap.timeline();
+          // t1.fromTo(".dd-icon", { x: 400,duration: 1 });
+          // // 在1秒开始插入动画（绝对值）
+          // t1.to(".green", { x: 400, duration: 1 }, 1);
+          // // 在上个动画的开始插入动画
+          // t1.to(".purple", { x: 400, duration: 1 }, "<");
+          // // 在最后一个动画结束后一秒插入动画
+          // t1.to(".orange", { x: 400, duration: 1 }, "+=1");
+          gsap.set(".dd-icon", { y: 100, scale: 0.3, opacity: 0.3 });
+          // gsap.set(".dd-text", { scale: 0.3, opacity: 0.3 });
+          gsap.fromTo(
+            ".dd-icon",
+            { y: 100, scale: 0.3, opacity: 0.3 },
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              scrollTrigger: {
+                trigger: ".main",
+                start: "top top",
+                end: "+400px",
+                scrub: true,
+                markers: true,
+                // pin: true, // 动画执行期间，页面不进行滚动，动画执行结束后
+              },
+            }
+          );
+          gsap.fromTo(".dd-icon", {
+            y: 0,
+              scale: 1,
+              opacity: 1,
+          }, {
+            y: -300,
+            opacity: 0.3,
+            scale: 2,
+            scrollTrigger: {
+              trigger: ".main",
+              start: "30% top",
+              end: "80% top",
+              scrub: true,
+              markers: true,
+              pin: true, // 动画执行期间，页面不进行滚动，动画执行结束后
+            },
+          });
+          const t2 = gsap.timeline();
+          gsap.set(".dd-text", { scale: 0.3, opacity: 0.3 });
+          t2.to(
+            ".dd-text",
+            // { scale: 0.3, opacity: 0.3 },
+            {
+              scale: 1,
+              opacity: 1,
+              scrollTrigger: {
+                trigger: ".main",
+                start: "top top",
+                end: "+400px",
+                scrub: true,
+                markers: true,
+                // pin: true, // 动画执行期间，页面不进行滚动，动画执行结束后
+              },
+            }
+          );
+          gsap.fromTo(
+            ".dd-text",
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+            },
+            {
+              y: -200,
+              opacity: 0.6,
+              scale: 2,
+              ease: "slow",
+              scrollTrigger: {
+                trigger: ".main",
+                start: "30% top",
+                end: "80% top",
+                scrub: true,
+                markers: true,
+              },
+            }
+          );
         },
         methods: {
           getRandomColor() {
             return Math.floor(Math.random() * 255);
           },
-          getSquareStyle(item) {
-            return `
-            background-color:${item.color};
-            width:${item.width}px;
-            height:${item.width}px;
-            top: ${item.top}px;
-            left: ${item.bottom}px;
-            `    
-          }
         },
       }).mount("#app");
     </script>
