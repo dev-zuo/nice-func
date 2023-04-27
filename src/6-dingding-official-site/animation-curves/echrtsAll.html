@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animation echarts</title>
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="echarts.min.js"></script>
+    <style>
+      .main {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .chart {
+        width: 1000px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="btnWrap">
+        <button class="btn" data-action="all">所有</button>
+        <button class="btn" data-action="partA">前面所有元素</button>
+        <button class="btn" data-action="partB">icon元素</button>
+    </div>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div class="main">
+      <div id="main-transX" class="chart"></div>
+      <div id="main-transY" class="chart"></div>
+      <div id="main-transZ" class="chart"></div>
+      <div id="main-opacity" class="chart"></div>
+    </div>
+    <script type="module">
+      import { allAnimationList } from "./dataAll.js";
+
+      // 遍历所有滚动位置(scrollTop)，所有动画元素的偏移/透明度数据
+      // 获取动画元素个数
+      // let aTransXDataList = [] // 第 0 号元素
+      let firstScrollPositionInfo = allAnimationList[0].animationElementList;
+      let animateElementCount = firstScrollPositionInfo.length;
+      function getSeriesData(name) {
+        let seriesData = [];
+        for (let i = 0; i < animateElementCount; i++) {
+          seriesData.push({
+            // name: firstScrollPositionInfo[i].className,
+            name: `${i}`,
+            type: "line",
+            // stack: "Total",
+            data: [],
+            smooth: true
+          });
+        }
+        allAnimationList.forEach((item) => {
+          // 第 0 个动画元素 A 的 transX 数据
+          // xx.push(item.animationElementList[0].transX)
+          seriesData.forEach((subItem, index) => {
+            subItem.data.push(item.animationElementList[index][name]);
+          });
+        });
+        return seriesData;
+      }
+      
+      console.log(firstScrollPositionInfo.map((item) => item.className))
+      let preCharts = []
+      // 绘制所有
+      renderCharts()
+      function renderChart(name, pos) {
+        // 元素区间
+        if (!pos) {
+            pos = [0, firstScrollPositionInfo.length]
+        }
+        let [start, end] = pos
+        console.log('xx', start, end)
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(`main-${name}`));
+        preCharts.push(myChart);
+        // 指定图表的配置项和数据
+        var option = {
+          title: {
+            text: `${name} 动画曲线`,
+          },
+          tooltip: {
+            trigger: "axis",
+          },
+          legend: {
+            data: firstScrollPositionInfo.slice(start, end).map((item, index) => `${index}`),
+            // type: 'scroll',
+            // top: 20,
+          },
+          xAxis: {
+            type: "category",
+            data: allAnimationList.map((item) => item.scrollTop),
+          },
+          yAxis: {},
+          series: getSeriesData(name).slice(start, end),
+          //   [
+          //     {
+          //       name: '方块A',
+          //       type: "line",
+          //       data: squareARecordList.map((item) => item[name]),
+          //     },
+          //   ],
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+      }
+      let posMap = {
+        'all': '',
+        'partA': [0, 28],
+        'partB': [28, 43]
+      }
+      document.querySelector('#btnWrap').addEventListener('click', (e) => {
+        let el = e.target
+        if (el.classList.contains('btn')) {
+            let action = el.dataset.action
+            console.log(posMap[action])
+            renderCharts(posMap[action] || '')
+        }
+      })
+      function renderCharts(pos) {
+        preCharts.forEach(item => {
+            item.clear();
+            item.dispose();
+        })
+        renderChart("transX", pos);
+        renderChart("transY", pos);
+        renderChart("transZ", pos);
+        renderChart("opacity", pos);
+      }
+    </script>
+  </body>
+</html>

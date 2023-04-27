@@ -25,3 +25,92 @@
 ## 相关工具
 
 贝塞尔动画曲线在线调试工具：[cubic-bezier](https://cubic-bezier.com/#.39,.27,.73,.87)
+
+## 程序化监听动画曲线
+
+先用一个元素做测试
+
+宽度调到 1400px，选择一个元素，滚动，记录动画属性值，与对应滚动距离
+
+```js
+window.innerWidth // 1400
+document.querySelector('.animation--ColorBox1--wSkwbZ9.animation--basePosition--FGeKxsr').style.cssText
+// 'opacity: 0.4; transform: translate3d(1e-05px, 1e-05px, -67px);'
+// xx.style.opacity // '0.4'
+// style.transform // translate3d(1e-05px, 1e-05px, -67px)
+
+document.documentElement.scrollTop // 滚动距离
+```
+
+监听元素变化，获取 scrollTop 与 style 值
+
+```js
+let square1 = document.querySelector('.animation--ColorBox1--wSkwbZ9.animation--basePosition--FGeKxsr')
+
+let recordList = []
+window.addEventListener('scroll', e => {
+    let scrollTop = document.documentElement.scrollTop
+    let cssText = square1.style.cssText
+    recordList.push({
+        scrollTop,
+        cssText
+    })
+    console.log(JSON.stringify(recordList, null, 2))
+})
+```
+
+将 transform 值切换出 x,y,z
+
+```js
+let str = 'translate3d(1e-05px, 1e-05px, -156px)'
+
+str.split('(')[1].split(')')[0] 
+// 1e-05px, 1e-05px, -156px
+str.split('(')[1].split(')')[0].split(',')
+// ['1e-05px', ' 1e-05px', ' -156px']
+str.split('(')[1].split(')')[0].split(',').map(item => {
+    return Number(item.trim().split('px')[0])
+})
+// [0.00001, 0.00001, -156]
+let [transX, transY, transZ] = str.split('(')[1].split(')')[0].split(',').map(item => {
+    return Number(item.trim().split('px')[0])
+})
+// transX 0.00001
+// transY 0.00001
+// transZ -156
+```
+
+完整代码
+
+```js
+let square1 = document.querySelector('.animation--ColorBox1--wSkwbZ9.animation--basePosition--FGeKxsr')
+
+let recordList = []
+window.addEventListener('scroll', e => {
+    let scrollTop = document.documentElement.scrollTop
+    let cssText = square1.style.cssText
+    let transformText = square1.style.transform
+    let opacity = square1.style.opacity - 0
+    let [transX, transY, transZ] = getTransformXyz(transformText)
+    recordList.push({
+        scrollTop,
+        cssText,
+        transX,
+        transY,
+        transZ,
+        opacity
+    })
+    console.log(JSON.stringify(recordList, null, 2))
+    console.log(recordList)
+})
+
+function getTransformXyz(str) {
+    // [0.00001, 0.00001, -156]
+    let  xyzArr = str.split('(')[1].split(')')[0].split(',').map(item => {
+        return Number(item.trim().split('px')[0])
+    })
+    return  xyzArr
+}
+```
+
+从控制台数据后，怎么自动下载到本地 json 文件中

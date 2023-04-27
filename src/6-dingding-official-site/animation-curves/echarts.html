@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animation echarts</title>
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="echarts.min.js"></script>
+    <style>
+      .main {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .chart {
+        width: 500px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div class="main">
+      <div id="main-transX" class="chart"></div>
+      <div id="main-transY" class="chart"></div>
+      <div id="main-transZ" class="chart"></div>
+      <div id="main-opacity" class="chart"></div>
+    </div>
+    <script type="module">
+      import { squareARecordList } from "./data.js";
+
+      renderChart("transX");
+      renderChart("transY");
+      renderChart("transZ");
+      renderChart("opacity");
+      function renderChart(name) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(`main-${name}`));
+        // 指定图表的配置项和数据
+        var option = {
+          title: {
+            text: `${name} 动画曲线`,
+          },
+          tooltip: {},
+          xAxis: {
+            data: squareARecordList.map((item) => item.scrollTop),
+          },
+          yAxis: {},
+          series: [
+            {
+              name: '方块A',
+              type: "line",
+              data: squareARecordList.map((item) => item[name]),
+            },
+          ],
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+      }
+    </script>
+  </body>
+</html>
