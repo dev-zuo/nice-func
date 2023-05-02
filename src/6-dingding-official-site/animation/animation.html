@@ -15,14 +15,14 @@
     <div id="app">
       <!-- <div class="height-gap"></div> -->
       <div class="main">
-        <div class="dd-icon"><img src="../images/dingd-icon.svg" /></div>
+        <!-- <div class="dd-icon"><img src="../images/dingd-icon.svg" /></div>
         <div class="dd-text"><img src="../images/dingd-text.svg" /></div>
         <div
           class="square"
           v-for="(item,index) in squareList"
           :class="`square-${index}`"
           :key="index"
-        ></div>
+        ></div> -->
         <div class="app-list">
           <!-- <div class="app-list-bg"></div> -->
           <div
@@ -55,105 +55,119 @@
           this.squareList = new Array(this.squareNum).fill(1);
           this.appList = new Array(this.appNum).fill(1);
           gsap.registerPlugin(ScrollTrigger);
-          const t1 = gsap.timeline();
-          // t1.fromTo(".dd-icon", { x: 400,duration: 1 });
-          // // 在1秒开始插入动画（绝对值）
-          // t1.to(".green", { x: 400, duration: 1 }, 1);
-          // // 在上个动画的开始插入动画
-          // t1.to(".purple", { x: 400, duration: 1 }, "<");
-          // // 在最后一个动画结束后一秒插入动画
-          // t1.to(".orange", { x: 400, duration: 1 }, "+=1");
+          // const t1 = gsap.timeline();
+          // // t1.fromTo(".dd-icon", { x: 400,duration: 1 });
+          // // // 在1秒开始插入动画（绝对值）
+          // // t1.to(".green", { x: 400, duration: 1 }, 1);
+          // // // 在上个动画的开始插入动画
+          // // t1.to(".purple", { x: 400, duration: 1 }, "<");
+          // // // 在最后一个动画结束后一秒插入动画
+          // // t1.to(".orange", { x: 400, duration: 1 }, "+=1");
 
-          // step1 - 向上移动，放大到 1 倍，透明度 1
-          // opacity: 0.5; transform: translate3d(1e-5px, 111px, -440px) scale(0.5);
-          // opacity: 1; transform: translate3d(1e-5px, 0px, 10px) scale(1);
-          // opacity: 0; transform: translate3d(1e-5px, -364px, 263px) scale(1.16);
-          t1.to(".dd-icon", { y: 0, z: 10, scale: 1, opacity: 1, duration: 1 });
-          // opacity: 1; transform: translate3d(1e-5px, 0px, 10px) scale(1);
-          t1.to(".dd-text", { y: 0, z: 10, scale: 1, opacity: 1, duration: 1 }, "<");
+          // // step1 - 向上移动，放大到 1 倍，透明度 1
+          // // opacity: 0.5; transform: translate3d(1e-5px, 111px, -440px) scale(0.5);
+          // // opacity: 1; transform: translate3d(1e-5px, 0px, 10px) scale(1);
+          // // opacity: 0; transform: translate3d(1e-5px, -364px, 263px) scale(1.16);
+          // t1.to(".dd-icon", { y: 0, z: 10, scale: 1, opacity: 1, duration: 1 });
+          // // opacity: 1; transform: translate3d(1e-5px, 0px, 10px) scale(1);
+          // t1.to(".dd-text", { y: 0, z: 10, scale: 1, opacity: 1, duration: 1 }, "<");
 
-          // opacity: 0.962; transform: translate3d(1e-5px, -121px, 94px) scale(1.053);
-          t1.to(".dd-icon", { y: -121, z: 94, scale: 1.053, opacity: 0.962, duration: 1 });
-          // transform: translate3d(1e-5px, -100px, 94px) scale(1.107);
-          t1.to(".dd-text", { y: -100, z: 94, scale: 1.107, opacity: 1, duration: 1 }, "<");
+          // // opacity: 0.962; transform: translate3d(1e-5px, -121px, 94px) scale(1.053);
+          // t1.to(".dd-icon", { y: -121, z: 94, scale: 1.053, opacity: 0.962, duration: 1 });
+          // // transform: translate3d(1e-5px, -100px, 94px) scale(1.107);
+          // t1.to(".dd-text", { y: -100, z: 94, scale: 1.107, opacity: 1, duration: 1 }, "<");
 
 
-          // // step2 - 继续上移，放大，其中 文案透明度 1，图标透明度 0.35
-          t1.to(".dd-icon", { y: -364, z: 263, scale: 1.2, opacity: 0, duration: 2 });
-          // opacity: 0; transform: translate3d(1e-5px, -400px, 347px) scale(1.427);
-          t1.to(".dd-text", { y: -400, z: 347, scale: 1.427, opacity: 0, duration: 2 }, "<");
+          // // // step2 - 继续上移，放大，其中 文案透明度 1，图标透明度 0.35
+          // t1.to(".dd-icon", { y: -364, z: 263, scale: 1.2, opacity: 0, duration: 2 });
+          // // opacity: 0; transform: translate3d(1e-5px, -400px, 347px) scale(1.427);
+          // t1.to(".dd-text", { y: -400, z: 347, scale: 1.427, opacity: 0, duration: 2 }, "<");
 
-          const t2 = gsap.timeline();
+          // const t2 = gsap.timeline();
+          // this.$nextTick(() => {
+          //   // step1 - 方块上移，两边初步散开
+          //   // 左侧
+          //   t2.to(".square-0", { z: 150, opacity: 0.656, duration: 2 });
+          //   t2.to(".square-1", { z: 171, opacity: 1,  duration: 2 }, "<");
+          //   t2.to(".square-2", { z: 171, opacity: 0.843,  duration: 2 }, "<");
+          //   t2.to(".square-3", { z: 171, opacity: 0.843,  duration: 2 }, "<");
+          //   t2.to(".square-4", { z: 171, opacity: 0.45,  duration: 2 }, "<");
+          //   t2.to(".square-5", { z: 171, opacity: 0.528,  duration: 2 }, "<");
+          //   t2.to(".square-6", { z: 171, opacity: 0.449,  duration: 2 }, "<");
+          //   t2.to(".square-7", { z: 171, opacity: 0.375,  duration: 2 }, "<");
+          //   t2.to(".square-8", { z: 171, opacity: 1,  duration: 2 }, "<");
+          //   // 9 - 13 山下方块
+          //   t2.to(".square-9", { z: 85, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-10", { z: 85, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-11", { z: 85, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-12", { z: 85, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-13", { z: 85, opacity: 0.4, duration: 2 }, "<");
+          //   // 右侧
+          //   t2.to(".square-14", { z: 171, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-15", { z: 171, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-16", { z: 171, opacity: 0.2, duration: 2 }, "<");
+          //   t2.to(".square-17", { z: 171, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-18", { z: 171, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-19", { z: 171, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-20", { z: 171, opacity: 1, duration: 2 }, "<");
+
+          //   // // step2 不上移，加快两边散开、放大
+          //   // 左侧
+          //   t2.to(".square-0", { z: 350, opacity: 0.656, duration: 2 });
+          //   t2.to(".square-1", { z: 350, opacity: 1,  duration: 2 }, "<");
+          //   t2.to(".square-2", { z: 350, opacity: 0.843,  duration: 2 }, "<");
+          //   t2.to(".square-3", { z: 350, opacity: 0.843,  duration: 2 }, "<");
+          //   t2.to(".square-4", { z: 350, opacity: 0.45,  duration: 2 }, "<");
+          //   t2.to(".square-5", { z: 350, opacity: 0.528,  duration: 2 }, "<");
+          //   t2.to(".square-6", { z: 350, opacity: 0.449,  duration: 2 }, "<");
+          //   t2.to(".square-7", { z: 350, opacity: 0.375,  duration: 2 }, "<");
+          //   t2.to(".square-8", { z: 350, opacity: 1,  duration: 2 }, "<");
+          //   // 9 - 13 山下方块
+          //   t2.to(".square-9", { z: 300, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-10", { z: 300, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-11", { z: 300, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-12", { z: 300, opacity: 0.4, duration: 2 }, "<");
+          //   t2.to(".square-13", { z: 300, opacity: 0.4, duration: 2 }, "<");
+          //   // 右侧
+          //   t2.to(".square-14", { z: 350, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-15", { z: 350, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-16", { z: 350, opacity: 0.2, duration: 2 }, "<");
+          //   t2.to(".square-17", { z: 350, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-18", { z: 350, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-19", { z: 350, opacity: 1, duration: 2 }, "<");
+          //   t2.to(".square-20", { z: 350, opacity: 1, duration: 2 }, "<");
+
+          //   const t3 = gsap.timeline();
+          //   t3.to(".app-1", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3})
+          //   t3.to(".app-2", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-6", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-7", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-8", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-9", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-13", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-14", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+
+          //   t3.to(".app-3", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3})
+          //   t3.to(".app-4", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-5", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-10", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-11", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          //   t3.to(".app-12", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
+          // });
+          const t5 = gsap.timeline();
           this.$nextTick(() => {
-            // step1 - 方块上移，两边初步散开
-            // 左侧
-            t2.to(".square-0", { z: 150, opacity: 0.656, duration: 2 });
-            t2.to(".square-1", { z: 171, opacity: 1,  duration: 2 }, "<");
-            t2.to(".square-2", { z: 171, opacity: 0.843,  duration: 2 }, "<");
-            t2.to(".square-3", { z: 171, opacity: 0.843,  duration: 2 }, "<");
-            t2.to(".square-4", { z: 171, opacity: 0.45,  duration: 2 }, "<");
-            t2.to(".square-5", { z: 171, opacity: 0.528,  duration: 2 }, "<");
-            t2.to(".square-6", { z: 171, opacity: 0.449,  duration: 2 }, "<");
-            t2.to(".square-7", { z: 171, opacity: 0.375,  duration: 2 }, "<");
-            t2.to(".square-8", { z: 171, opacity: 1,  duration: 2 }, "<");
-            // 9 - 13 山下方块
-            t2.to(".square-9", { z: 85, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-10", { z: 85, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-11", { z: 85, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-12", { z: 85, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-13", { z: 85, opacity: 0.4, duration: 2 }, "<");
-            // 右侧
-            t2.to(".square-14", { z: 171, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-15", { z: 171, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-16", { z: 171, opacity: 0.2, duration: 2 }, "<");
-            t2.to(".square-17", { z: 171, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-18", { z: 171, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-19", { z: 171, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-20", { z: 171, opacity: 1, duration: 2 }, "<");
+            t5.to(".app-1", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3})
+            t5.to(".app-7", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3}, "<")
+            t5.to(".app-8", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3}, "<")
+            t5.to(".app-14", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration:3}, "<")
+            
+            t5.to(".app-2", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3}, "<")
+            t5.to(".app-6", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3}, "<")
+            t5.to(".app-9", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3}, "<")
+            t5.to(".app-13", {x: 0, y: 0, z: 10, scale: 1, opacity: 1, duration: 3}, "<")
 
-            // // step2 不上移，加快两边散开、放大
-            // 左侧
-            t2.to(".square-0", { z: 350, opacity: 0.656, duration: 2 });
-            t2.to(".square-1", { z: 350, opacity: 1,  duration: 2 }, "<");
-            t2.to(".square-2", { z: 350, opacity: 0.843,  duration: 2 }, "<");
-            t2.to(".square-3", { z: 350, opacity: 0.843,  duration: 2 }, "<");
-            t2.to(".square-4", { z: 350, opacity: 0.45,  duration: 2 }, "<");
-            t2.to(".square-5", { z: 350, opacity: 0.528,  duration: 2 }, "<");
-            t2.to(".square-6", { z: 350, opacity: 0.449,  duration: 2 }, "<");
-            t2.to(".square-7", { z: 350, opacity: 0.375,  duration: 2 }, "<");
-            t2.to(".square-8", { z: 350, opacity: 1,  duration: 2 }, "<");
-            // 9 - 13 山下方块
-            t2.to(".square-9", { z: 300, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-10", { z: 300, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-11", { z: 300, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-12", { z: 300, opacity: 0.4, duration: 2 }, "<");
-            t2.to(".square-13", { z: 300, opacity: 0.4, duration: 2 }, "<");
-            // 右侧
-            t2.to(".square-14", { z: 350, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-15", { z: 350, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-16", { z: 350, opacity: 0.2, duration: 2 }, "<");
-            t2.to(".square-17", { z: 350, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-18", { z: 350, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-19", { z: 350, opacity: 1, duration: 2 }, "<");
-            t2.to(".square-20", { z: 350, opacity: 1, duration: 2 }, "<");
 
-            const t3 = gsap.timeline();
-            t3.to(".app-1", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3})
-            t3.to(".app-2", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-6", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-7", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-8", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-9", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-13", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-14", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-
-            t3.to(".app-3", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3})
-            t3.to(".app-4", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-5", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-10", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-11", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-            t3.to(".app-12", {x: 0, y: 1, z: 10, scale: 1, opacity: 1, duration: 3},  "<")
-          });
+          })
         },
         methods: {},
       }).mount("#app");

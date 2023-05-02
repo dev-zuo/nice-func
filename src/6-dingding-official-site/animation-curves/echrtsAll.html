@@ -12,9 +12,13 @@
         display: flex;
         flex-wrap: wrap;
       }
-      .chart {
+      /* .chart {
         width: 1000px;
         height: 600px;
+      } */
+      .chart {
+        width: 500px;
+        height: 300px;
       }
     </style>
   </head>
@@ -28,8 +32,8 @@
     <div class="main">
       <div id="main-transX" class="chart"></div>
       <div id="main-transY" class="chart"></div>
-      <div id="main-transZ" class="chart"></div>
       <div id="main-opacity" class="chart"></div>
+      <div id="main-transZ" class="chart"></div>
     </div>
     <script type="module">
       import { allAnimationList } from "./dataAll.js";
@@ -42,9 +46,11 @@
       function getSeriesData(name) {
         let seriesData = [];
         for (let i = 0; i < animateElementCount; i++) {
+          let classList = firstScrollPositionInfo[i].className.split(' ')
           seriesData.push({
             // name: firstScrollPositionInfo[i].className,
-            name: `${i}`,
+            // name: `${i}`,
+            name: classList.pop(),
             type: "line",
             // stack: "Total",
             data: [],
@@ -84,7 +90,10 @@
             trigger: "axis",
           },
           legend: {
-            data: firstScrollPositionInfo.slice(start, end).map((item, index) => `${index}`),
+            data: firstScrollPositionInfo.slice(start, end).map((item, index) => {
+              let classList = item.className.split(" ")
+              return classList.pop()
+            }),
             // type: 'scroll',
             // top: 20,
           },
@@ -108,7 +117,7 @@
       let posMap = {
         'all': '',
         'partA': [0, 28],
-        'partB': [28, 43]
+        'partB': [29, 43]
       }
       document.querySelector('#btnWrap').addEventListener('click', (e) => {
         let el = e.target
