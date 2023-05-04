@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>demo</title>
+  <script src="./resou/jquery.min.js"></script>
+  <script src="./resou/lottie.min.js"></script>
+  <style>
+    body {
+      background-color: #000000;
+      color: #fff;
+      text-align: center;
+      align-items: center;
+    }
+
+    #container {
+      width: 100%;
+      background-color: #0000001a;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="width: 100%; padding:300px 0;">向下👇滚动</div>
+  <div id="container"></div>
+  <div style="width: 100%; height: 1000px;"></div>
+</body>
+<script>
+  var p = 0, t = 0;
+  var ruelsLottie = lottie.loadAnimation({
+    path: 'resou/data.json',
+    loop: false,
+    autoplay: false,
+    renderer: 'svg',
+    container: document.getElementById("container"),
+  });
+  $(window).scroll(function () {
+    var timeCompleted = ruelsLottie.timeCompleted - 1;
+    p = $(window).scrollTop() / 4
+
+    let k = p < timeCompleted ? p : timeCompleted;
+    if (t < p) {
+      ruelsLottie.goToAndStop(k, true);
+    } else {
+      ruelsLottie.goToAndStop(k, true);
+    }
+    setTimeout(function () { t = p; }, 0)
+  });
+</script>
+
+</html>
